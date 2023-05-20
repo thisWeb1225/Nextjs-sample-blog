@@ -35,7 +35,7 @@ const Layout = ({
         <meta name="og:title" content={siteTitle}/>
       </Head>
 
-      <div className='px-2 sm:px-8 md:px-16 lg:px-32'>
+      <div className='px-2 sm:px-8 md:px-16 lg:px-32 bg-tw-dark text-tw-white'>
       <Header></Header>
       <Banner></Banner>
       <About></About>
