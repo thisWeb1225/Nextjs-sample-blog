@@ -25,7 +25,7 @@ const menuData = [
 
 const Menu = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 flex justify-between p items-center px-4 py-2">
+    <nav className="fixed top-0 left-0 right-0 flex justify-between p items-center px-4 py-2 backdrop-blur-md">
       <Image 
         priority
         src="/images/avatar.jpg" 
