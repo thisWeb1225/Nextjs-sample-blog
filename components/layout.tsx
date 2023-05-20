@@ -1,8 +1,13 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '/styles/utils.module.css';
-import Link from 'next/link'
+import Link from 'next/link';
+import Header from './header';
+import Banner from './banner';
+import About from './about';
+import Project from './project';
+import Posts from './posts';
+import Footer from './footer';
+import Post from '../pages/posts/[id]';
 
 const name: string = 'this web'
 export const siteTitle: string = 'Next.js Sample Website'
@@ -14,7 +19,7 @@ const Layout = ({
   home?: boolean
 }) => {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <link rel="icon" href="/favicon.ico"/>
         <meta 
@@ -29,7 +34,18 @@ const Layout = ({
         />
         <meta name="og:title" content={siteTitle}/>
       </Head>
-      <header className={styles.header}>
+
+      <div className='px-2 sm:px-8 md:px-16 lg:px-32'>
+      <Header></Header>
+      <Banner></Banner>
+      <About></About>
+      <Project></Project>
+      <Posts></Posts>
+      <Footer></Footer>
+      </div>
+
+
+      {/* <header className={styles.header}>
         {home ? (
           <>
             <Image 
@@ -67,8 +83,8 @@ const Layout = ({
         <div className={styles.backToHome}>
           <Link href="/">← Back to home</Link>
         </div>
-      )}
-    </div>
+      )} */}
+    </>
   );
 };
 
