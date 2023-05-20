@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import Header from './header';
+import Menu from './menu';
 import Banner from './banner';
 import About from './about';
 import Project from './project';
@@ -36,7 +36,7 @@ const Layout = ({
       </Head>
 
       <div className='px-2 sm:px-8 md:px-16 lg:px-32 bg-tw-dark text-tw-white'>
-      <Header></Header>
+      <Menu></Menu>
       <Banner></Banner>
       <About></About>
       <Project></Project>
