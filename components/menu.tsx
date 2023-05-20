@@ -1,3 +1,4 @@
+import Image from "next/image"
 
 const menuData = [
   {
@@ -24,8 +25,16 @@ const menuData = [
 
 const Menu = () => {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 md:right-auto md:top-0   bg-tw-dark">
-        <ul className="h-full flex md:flex-col justify-between py-2 md:py-16 px-4">
+    <nav className="fixed top-0 left-0 right-0 flex justify-between p items-center px-4 py-2">
+      <Image 
+        priority
+        src="/images/avatar.jpg" 
+        alt="avatar" 
+        width={300}
+        height={300}
+        className="w-12 max-h-12 rounded-full"
+        />
+        <ul className="flex gap-4">
           {menuData.map((item) => {
             return (
               <li className="text-center">{item.name}</li>
