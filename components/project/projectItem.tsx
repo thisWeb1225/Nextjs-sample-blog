@@ -13,7 +13,7 @@ const ProjectItem = ({src, date, title, x, y}: projectDataType) => {
   }, [imgBox])
 
   return (
-    <div className="absolute left-[var(--x)] top-[var(--y)] group" ref={imgBox}>
+    <div className="absolute left-[var(--x)] top-[var(--y)] group project__img" ref={imgBox}>
       <Image
         src={src}
         alt={title}

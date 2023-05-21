@@ -5,3 +5,7 @@
 body, html {
   overflow-x: visible;
 }
+
+.project__gallery:has(.project__img:hover) > .project__img:not(:hover) > img {
+  filter: saturate(0.1);
+}

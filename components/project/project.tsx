@@ -6,15 +6,15 @@ const projectData = [
     src: '/images/IG.png',
     date: '2022.9 ~ now',
     title: 'IG social media',
-    x: 16,
-    y: 25,
+    x: 22,
+    y: 27,
   },
   {
     src: '/images/officialWebsite.png',
     date: '2023.3 ~ now',
     title: 'Official Website',
-    x: 77,
-    y: 43,
+    x: 57,
+    y: 73,
   }
 ]
 
@@ -36,6 +36,8 @@ const Project = () => {
   }
 
   const mouseLeave = useCallback(() => {
+    galleryInner.current.style.setProperty('--x', `${-10}%`);
+    galleryInner.current.style.setProperty('--y', `${-10}%`);
   }, [galleryInner])
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const Project = () => {
 
   return (
     <div className="h-screen relative mt-36 z-10 overflow-hidden" ref={gallery} onMouseMove={hoverEffect} onMouseLeave={mouseLeave}>
-      <div className="h-[120%] w-[120%] translate-x-[var(--x)] translate-y-[var(--y)] duration-300 ease-linear" ref={galleryInner} >
+      <div className="h-[120%] w-[120%] translate-x-[var(--x)] translate-y-[var(--y)] duration-300 ease-linear project__gallery" ref={galleryInner} >
           {projectData.map((project, i) =>
             <ProjectItem
               src={project.src}
@@ -53,9 +55,9 @@ const Project = () => {
               title={project.title}
               x={project.x}
               y={project.y}
-            />)}
+              />)}
       </div>
-      <h3 className="text-4xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">My Projects</h3>
+              <h3 className="text-4xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">My Projects</h3>
 
     </div>
   )
