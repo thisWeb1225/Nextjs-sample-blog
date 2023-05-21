@@ -24,7 +24,7 @@ const MenuItem = ({ name, path }: {
 
   return (
     <li className="text-center uppercase text-xs p-4" onMouseMove={hoverEffect} onMouseLeave={mouseleave} ref={menuItem}>
-      <a href={path} ref={menuItemLink} className="block translate-x-[var(--x)] translate-y-[var(--y)] transition-transform duration-100 ease-linear">{name}</a>
+      <a href={path} ref={menuItemLink} className="block translate-x-[var(--x)] translate-y-[var(--y)] transition-transform duration-200 ease-linear">{name}</a>
     </li>
   )
 }

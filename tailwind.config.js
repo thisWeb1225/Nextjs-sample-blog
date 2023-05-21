@@ -10,7 +10,10 @@ module.exports = {
       "tw-dark": "#23232d",
       "tw-primary": "#2ecce0",
       "tw-white": "#fff",
-      "tw-gray": "#333",
+      "tw-gray": "#aaa",
+    },
+    boxShadow: {
+      "tw-shadow": "4px 4px 16px rgba(0, 0, 0, 0.8)"
     },
     extend: {},
   },

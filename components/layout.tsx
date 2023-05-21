@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Menu from './menu/index';
 import Banner from './banner';
 import About from './about';
-import Project from './project';
+import Project from './project/index';
 import Posts from './posts';
 import Footer from './footer';
 import Post from '../pages/posts/[id]';
@@ -34,8 +34,8 @@ const Layout = ({
         />
         <meta name="og:title" content={siteTitle}/>
       </Head>
-
-      <div className='px-2 sm:px-8 md:px-24 lg:px-32 bg-tw-dark text-tw-white text-sm'>
+{/* px-2 sm:px-8 md:px-24 lg:px-32 */}
+      <div className=' bg-tw-dark text-tw-white text-sm relative overflow-x-hidden'>
       <Menu></Menu>
       <Banner></Banner>
       <About></About>
