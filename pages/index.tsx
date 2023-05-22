@@ -1,20 +1,28 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from '../components/layout';
+import Layout from '../components/rootLayout/index';
+import { siteTitle } from '../components/rootLayout';
 import { getSortedPostsData } from '../lib/posts';
 import Link from 'next/link';
 import { GetStaticProps } from 'next'
 
-export default function Home({ allPostsData }) {
+import Banner from '../components/banner';
+import About from '../components/about';
+import Project from '../components/project/index';
+import Posts from '../components/posts/index';
+
+export default function Home({ allSortedPostsData }) {
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section>
-        <p>Hello！I am thisWeb.</p>
-      </section>
 
-      <section>
+      <Banner></Banner>
+      <About></About>
+      <Project></Project>
+      <Posts allSortedPostsData={allSortedPostsData}></Posts>
+
+      {/* <section>
         <h2>Blog</h2>
         <ul>
           {allPostsData.map(({ id, date, title }) => (
@@ -24,16 +32,16 @@ export default function Home({ allPostsData }) {
             </li>
           ))}
         </ul>
-      </section>
+      </section> */}
     </Layout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData();
+  const allSortedPostsData = getSortedPostsData();
   return {
     props: {
-      allPostsData,
+      allSortedPostsData,
     },
   };
 }

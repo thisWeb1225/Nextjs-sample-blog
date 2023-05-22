@@ -7,7 +7,13 @@ import html from 'remark-html';
 // process.cwd() 回傳當前目錄的路徑
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-export function getSortedPostsData() {
+export type sortedPostsDataType = {
+  id: string;
+  title: string;
+  date: string;
+};
+
+export function getSortedPostsData (): sortedPostsDataType[] {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory);
   const allPostsData = fileNames.map((fileName) => {
@@ -24,9 +30,10 @@ export function getSortedPostsData() {
     // Combine the data with the id
     return {
       id,
-      ...(matterResult.data as {date: string, title: string})
+      ...(matterResult.data as { date: string; title: string }),
     };
   });
+
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
@@ -43,12 +50,14 @@ export function getAllPostIds() {
     return {
       params: {
         id: fileName.replace(/\.md$/, ''),
-      }
-    }
-  })
+      },
+    };
+  });
 }
 
-export async function getPostData(id) {
+export type postDataType = sortedPostsDataType & {contentHtml: string}
+
+export async function getPostData (id: string): Promise<postDataType> {
   const fullPath = path.join(postsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
@@ -65,6 +74,6 @@ export async function getPostData(id) {
   return {
     id,
     contentHtml,
-    ...(matterResult.data as { data: string, title: string}),
+    ...(matterResult.data as { date: string; title: string }),
   };
 }

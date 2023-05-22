@@ -1,8 +1,8 @@
 const About = () => {
   return (
-    <div className="flex flex-col items-center gap-4 text-center">
+    <div className="flex flex-col items-center gap-4 text-center px-2 sm:px-8 md:px-24 lg:px-32">
       <p className="text-tw-primary italic">" Creating Web Is an Art "</p>
-      <h3 className="text-4xl">About Me</h3>
+      <h3 className="text-4xl font-extrabold">About Me</h3>
       <p>
         I use react or Vue with TypeScript to develop websites and excel in UI/UX design and web animation production.
       </p>

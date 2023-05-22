@@ -1,19 +1,14 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import Menu from './menu/index';
-import Banner from './banner';
-import About from './about';
-import Project from './project/index';
-import Posts from './posts';
-import Footer from './footer';
-import Post from '../pages/posts/[id]';
+import Menu from '../menu/index';
+import Footer from '../footer';
 
-const name: string = 'this web'
-export const siteTitle: string = 'Next.js Sample Website'
+export const siteTitle: string = 'Kun Yang Portfolio'
 
-const Layout = ({ 
-  children, home 
+const RootLayout = ({
+  children,
+  home
 }: {
   children: React.ReactNode,
   home?: boolean
@@ -21,10 +16,10 @@ const Layout = ({
   return (
     <>
       <Head>
-        <link rel="icon" href="/favicon.ico"/>
-        <meta 
+        <link rel="icon" href="/favicon.ico" />
+        <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="Kun Yang's Portfolio"
         />
         <meta
           property="og:image"
@@ -32,18 +27,15 @@ const Layout = ({
             siteTitle,
           )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
-        <meta name="og:title" content={siteTitle}/>
+        <meta name="og:title" content={siteTitle} />
       </Head>
-{/* px-2 sm:px-8 md:px-24 lg:px-32 */}
-      <div className=' bg-tw-dark text-tw-white text-sm relative overflow-x-hidden'>
-      <Menu></Menu>
-      <Banner></Banner>
-      <About></About>
-      <Project></Project>
-      <Posts></Posts>
-      <Footer></Footer>
-      </div>
 
+      {/* px-2 sm:px-8 md:px-24 lg:px-32 */}
+      <div className='bg-tw-dark text-tw-white text-sm relative overflow-x-hidden'>
+        <Menu></Menu>
+        {children}
+        <Footer></Footer>
+      </div>
 
       {/* <header className={styles.header}>
         {home ? (
@@ -88,4 +80,4 @@ const Layout = ({
   );
 };
 
-export default Layout;
+export default RootLayout;
