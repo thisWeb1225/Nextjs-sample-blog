@@ -30,7 +30,6 @@ const Project = () => {
     const raion = 100;
     const calcX = -(e.clientX - gallerySize.left - gallerySize.width / 2) / raion;
     const calcY = -(e.clientY - gallerySize.top - gallerySize.height / 2) / raion;
-    console.log(calcX)
     galleryInner.current.style.setProperty('--x', `${-10 + calcX}%`);
     galleryInner.current.style.setProperty('--y', `${-10 + calcY}%`);
   }
@@ -55,6 +54,7 @@ const Project = () => {
               title={project.title}
               x={project.x}
               y={project.y}
+              key={i}
               />)}
       </div>
               <h3 className="text-4xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">My Projects</h3>

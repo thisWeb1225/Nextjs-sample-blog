@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { GetStaticProps } from 'next'
 
 import Banner from '../components/banner';
-import About from '../components/about';
+import About from '../components/about/index';
 import Project from '../components/project/index';
 import Posts from '../components/posts/index';
 
