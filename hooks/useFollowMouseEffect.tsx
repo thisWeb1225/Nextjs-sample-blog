@@ -43,11 +43,6 @@ const useFollowMouseEffect = (
     parent.current.addEventListener('mousemove', moveEffect as any);
     parent.current.addEventListener('mouseleave', leaveEffect as any);
 
-    return () => {
-      parent.current.removeEventListener('mousemove', moveEffect as any);
-      parent.current.removeEventListener('mouseleave', leaveEffect as any);
-    }
-
   }, [parent, child, isParentMove])
 
 }

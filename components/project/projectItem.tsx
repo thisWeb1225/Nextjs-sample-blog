@@ -13,13 +13,13 @@ const ProjectItem = ({src, date, title, x, y}: projectDataType) => {
   }, [imgBox])
 
   return (
-    <div className="absolute left-[var(--x)] top-[var(--y)] group project__img" ref={imgBox}>
+    <div className="absolute left-[var(--x)] top-[var(--y)] group hover:scale-125 duration-700 project__img" ref={imgBox}>
       <Image
         src={src}
         alt={title}
         width={250}
         height={250}
-        className="object-cover shadow-tw-shadow"
+        className="object-cover shadow-tw-shadow duration-500"
       />
       <div className="flex flex-col items-center mt-2 invisible opacity-0 duration-500 group-hover:visible group-hover:opacity-100">
         <p className="text-xs text-tw-gray">
