@@ -9,8 +9,6 @@ const useFollowMouseEffect = (
   useEffect(() => setParentRect(parent.current.getBoundingClientRect()), [parent]);
 
   useEffect(() => {
-    console.log(parent.current)
-
     if (!parent.current || !children[0].current) {
       return; // Exit early if the parent or child references are not available
     }
