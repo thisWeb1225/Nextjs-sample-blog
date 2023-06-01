@@ -91,7 +91,7 @@ const Banner = () => {
      * Parameter
      */
     let frameId;
-    const ctx = canvas.current.getContext('2d');
+    const ctx = canvas.current.getContext('2d', {willReadFrequently:true});
     const { width, height } = canvas.current;
     const particles = [];
 
