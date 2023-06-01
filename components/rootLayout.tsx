@@ -1,9 +1,7 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 import Menu from './menu/index';
-import Footer from './footer';
-import Post from '../pages/posts/[id]';
+import Footer from './footer/index';
+
 
 export const siteTitle: string = 'Kun Yang Portfolio'
 

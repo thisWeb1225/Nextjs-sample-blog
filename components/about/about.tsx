@@ -9,9 +9,9 @@ const About = () => {
   useFollowMouseEffect(aboutParent, aboutChild1, aboutChild2);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center px-2 sm:px-8 md:px-24 lg:px-32">
+    <div className="mt-32 grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center px-2 sm:px-8 md:px-24 lg:px-32">
       <div className="text-left flex flex-col gap-6 px-4">
-        <p className="text-tw-primary text-5xl font-extrabold ">" Creating Web Is an Art "</p>
+        <p className="text-tw text-5xl font-extrabold uppercase text-tw-primary">" Creating Web Is an Art "</p>
         <p>
           I use React or Vue with TypeScript to build websites and I love UI design and web's animation design.
           <br />

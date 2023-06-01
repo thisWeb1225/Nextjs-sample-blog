@@ -1,5 +1,6 @@
-import Image from "next/image";
+import Head from 'next/head';
 import { useCallback, useEffect, useRef, useState } from "react";
+
 
 class Particle {
   ctx: CanvasRenderingContext2D;
@@ -82,9 +83,6 @@ const Banner = () => {
       mousePosition.current.radius = 100;
     }
     canvas.current.addEventListener('mousemove', mouseMove)
-    return () => {
-      canvas.current.removeEventListener('mousemove', mouseMove);
-    }
   }, [canvas])
 
 
@@ -162,14 +160,16 @@ const Banner = () => {
 
     const init = () => {
       if (frameId) cancelAnimationFrame(frameId);
-      // clear old data
-      canvasResize();
-      clearCanvas();
-      particles.splice(0, particles.length);
+      if (canvas.current) {
+        // clear old data
+        canvasResize();
+        clearCanvas();
+        particles.splice(0, particles.length);
 
-      // generate new particle
-      generateParticle();
-      animate();
+        // generate new particle
+        generateParticle();
+        animate();
+      }
     }
 
     if (canvas.current) {
@@ -194,7 +194,9 @@ const Banner = () => {
     //     <p>Make your brand website unique</p>
     //   </div>
     // </div>
+
     <canvas className="w-screen h-screen" ref={canvas}></canvas>
+
   )
 }
 

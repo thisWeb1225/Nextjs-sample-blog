@@ -1,4 +1,3 @@
-import { watch } from "fs";
 import { RefObject, MouseEvent, useEffect, useState } from "react";
 
 const useFollowMouseEffect = (
