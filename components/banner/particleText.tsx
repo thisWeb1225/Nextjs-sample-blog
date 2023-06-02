@@ -62,6 +62,7 @@ const ParticleText = ({fonts}: Props) => {
       })
 
       const pixels = ctx.getImageData(0, 0, canvas.current.width, canvas.current.height).data;
+      console.log(pixels)
 
       // when get the pixels, clear the canvas' text
       clearCanvas()
@@ -101,6 +102,7 @@ const ParticleText = ({fonts}: Props) => {
       // clear old data
       canvasResize();
       clearCanvas();
+      // clear old particle
       particles.splice(0, particles.length);
 
       // generate new particle
