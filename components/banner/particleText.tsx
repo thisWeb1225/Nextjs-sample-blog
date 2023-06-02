@@ -36,7 +36,6 @@ const ParticleText = ({fonts}: Props) => {
     // Parameter
     let frameId;
     const ctx = canvas.current.getContext('2d', { willReadFrequently: true });
-    const { width, height } = canvas.current;
     const particles = [];
 
     /**
@@ -48,7 +47,7 @@ const ParticleText = ({fonts}: Props) => {
     }
 
     const clearCanvas = () => {
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
     }
 
     const generateParticle = () => {
@@ -62,23 +61,23 @@ const ParticleText = ({fonts}: Props) => {
         ctx.fillText(content, x, y);
       })
 
-      const pixels = ctx.getImageData(0, 0, width, height).data;
+      const pixels = ctx.getImageData(0, 0, canvas.current.width, canvas.current.height).data;
 
       // when get the pixels, clear the canvas' text
       clearCanvas()
 
       // get the data of canvas' every chunk, the type of gap must be integer 
       const gap = 1;
-      for (let y = 0; y < height; y += gap) {
-        for (let x = 0; x < width; x += gap) {
-          const index = (y * width + x) * 4;
+      for (let y = 0; y < canvas.current.height; y += gap) {
+        for (let x = 0; x < canvas.current.width; x += gap) {
+          const index = (y * canvas.current.width + x) * 4;
           const alpha = pixels[index + 3];
           if (alpha > 0) {
             const red = pixels[index];
             const green = pixels[index + 1];
             const blue = pixels[index + 2];
             const color = `rgb(${red}, ${green}, ${blue})`;
-            particles.push(new Particle(ctx, width, height, gap, x, y, color, mousePosition.current))
+            particles.push(new Particle(ctx, canvas.current.width, canvas.current.height, gap, x, y, color, mousePosition.current))
           }
         }
       }
