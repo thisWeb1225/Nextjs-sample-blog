@@ -51,7 +51,7 @@ const Project = () => {
 
   return (
     <div className="h-screen relative z-10 overflow-hidden mt-12 border-[1px] border-gray-600 rounded-md mx-4 bg-[rgba(0,0,0,0.3)] group" ref={gallery} onMouseMove={hoverEffect} onMouseLeave={mouseLeave}>
-      <h3 className="text-5xl text-tw-primary font-bold absolute top-1/2 left-1/2 translate-x-[var(--x)] translate-y-[var(--y)] duration-300 ease-linear text-stroke-primary duration-500 group-hover:text-transparent" ref={galleryTitle}>My Projects</h3>
+      <h3 className="text-5xl text-tw-primary font-bold absolute top-1/2 left-1/2 translate-x-[var(--x)] translate-y-[var(--y)] ease-linear text-stroke-primary duration-500 group-hover:text-transparent" ref={galleryTitle}>My Projects</h3>
       <div className="h-[120%] w-[120%] translate-x-[var(--x)] translate-y-[var(--y)] duration-300 ease-linear project__gallery" ref={galleryInner} >
         {projectData.map((project, i) =>
           <ProjectItem

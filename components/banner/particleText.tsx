@@ -71,26 +71,26 @@ const ParticleText = ({fonts}: Props) => {
     canvasResize(canvas.current);
 
     // generate Paritcle
-    const generateParticle = () => {
+    const generateParticle = (canvas: HTMLCanvasElement) => {
       
       darwText(ctx.current, fonts);
-      const pixels = ctx.current.getImageData(0, 0, canvas.current.width, canvas.current.height).data;
+      const pixels = ctx.current.getImageData(0, 0, canvas.width, canvas.height).data;
 
       // when get the pixels, clear the canvas' text
       clearCanvas(ctx.current)
 
       // get the data of canvas' every chunk, the type of gap must be integer 
       const gap = 1;
-      for (let y = 0; y < canvas.current.height; y += gap) {
-        for (let x = 0; x < canvas.current.width; x += gap) {
-          const index = (y * canvas.current.width + x) * 4;
+      for (let y = 0; y < canvas.height; y += gap) {
+        for (let x = 0; x < canvas.width; x += gap) {
+          const index = (y * canvas.width + x) * 4;
           const alpha = pixels[index + 3];
           if (alpha > 0) {
             const red = pixels[index];
             const green = pixels[index + 1];
             const blue = pixels[index + 2];
             const color = `rgb(${red}, ${green}, ${blue})`;
-            particles.push(new Particle(ctx.current, canvas.current.width, canvas.current.height, gap, x, y, color))
+            particles.push(new Particle(ctx.current, canvas.width, canvas.height, gap, x, y, color))
           }
         }
       }
@@ -120,7 +120,7 @@ const ParticleText = ({fonts}: Props) => {
       particles.splice(0, particles.length);
 
       // generate new particle
-      generateParticle();
+      generateParticle(canvas.current);
       animate();
     }
 
