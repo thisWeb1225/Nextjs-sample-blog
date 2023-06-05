@@ -1,6 +1,4 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 import Menu from '../menu/index';
 import Footer from '../footer';
 

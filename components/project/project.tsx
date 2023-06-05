@@ -1,4 +1,4 @@
-import { use, useRef, MouseEvent, useEffect, useCallback } from "react";
+import { useRef, MouseEvent, useEffect, useCallback } from "react";
 import ProjectItem from "./projectItem";
 
 const projectData = [
