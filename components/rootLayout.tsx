@@ -2,7 +2,6 @@ import Head from 'next/head';
 import Menu from './menu/index';
 import Footer from './footer/index';
 
-
 export const siteTitle: string = 'Kun Yang Portfolio'
 
 const Layout = ({

@@ -11,14 +11,6 @@ const menuData = [
     path: '/'
   },
   {
-    name: 'project',
-    path: '/'
-  },
-  {
-    name: 'posts',
-    path: '/'
-  },
-  {
     name: 'contact',
     path: '/'
   },

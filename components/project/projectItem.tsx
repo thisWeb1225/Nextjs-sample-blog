@@ -17,15 +17,15 @@ const ProjectItem = ({src, date, title, x, y}: projectDataType) => {
       <Image
         src={src}
         alt={title}
-        width={250}
-        height={250}
+        width={200}
+        height={200}
         className="object-cover shadow-tw-shadow duration-500"
       />
       <div className="flex flex-col items-center mt-2 invisible opacity-0 duration-500 group-hover:visible group-hover:opacity-100">
-        <p className="text-xs text-tw-gray">
+        <p className="text-[14px] text-tw-gray">
           {date}
         </p>
-        <p className="text-tw-primary text-base">
+        <p className="text-tw-primary text-xs">
           {title}
         </p>
       </div>
