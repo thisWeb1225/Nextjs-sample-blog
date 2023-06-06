@@ -2,14 +2,12 @@ import Link from "next/link";
 import { sortedPostsDataType } from "../../lib/posts";
 import { useEffect, useRef } from "react";
 
-import  styles  from "./../../styles/postItem.module.css";
+import styles  from "./../../styles/postItem.module.css";
 
 const PostItem = ({ id, date, title }: sortedPostsDataType) => {
   const post = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
-    post.current.style.background = `radial-gradient(circle at var(--x) var(--y),#2ecbe030, transparent 60%);`
-
     post.current.addEventListener('mousemove', (e) => {
       const postRect = post.current.getBoundingClientRect();
       const calX = e.clientX - postRect.left;
@@ -21,7 +19,7 @@ const PostItem = ({ id, date, title }: sortedPostsDataType) => {
   
 
   return (
-    <li key={id} className={`min-h-[360px] text-center border-[1px] border-neutral-700 hover:border-tw-gray duration-500 rounded-md group relative ${styles.postItem}`} ref={post}>
+    <li key={id} className={`min-h-[360px] text-center border-[1px] border-gray-600 hover:border-tw-gray duration-500 rounded-md group relative bg-[rgba(0,0,0,0.3)] ${styles.postItem}`} ref={post}>
       <Link href={`/posts/${id}`} className="h-full p-8 flex flex-col justify-center relative z-10">
         <h3 className="text-base text-gray-600 duration-500 group-hover:text-tw-white">{title}</h3>
         <p className="text-xs text-tw-gray">{date}</p>

@@ -35,7 +35,7 @@ const useFollowMouseEffect = (
 
     parent.current.addEventListener('mouseenter', enterEffect as any);
     parent.current.addEventListener('mousemove', moveEffect as any);
-    parent.current.addEventListener('mouseleave', leaveEffect as any);
+    parent.current.addEventListener('mouseout', leaveEffect as any);
 
   }, [parent, ...children])
 

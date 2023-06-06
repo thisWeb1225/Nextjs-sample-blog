@@ -6,7 +6,7 @@
   content: '';
   position: absolute;
   inset: -5px;
-  background:radial-gradient(circle at var(--x) var(--y),rgba(20, 125, 250, 0.1), transparent 60%), rgba(0,0,0,0.1);
+  background:radial-gradient(circle at var(--x) var(--y),rgba(20, 125, 250, 0.1), transparent 60%);
   opacity: 0;
   transition: .5s;
 }
