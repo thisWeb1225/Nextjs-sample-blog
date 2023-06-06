@@ -64,7 +64,7 @@ const ParticleText = ({fonts}: Props) => {
     
     // Parameter
     let frameId;
-    ctx.current = canvas.current.getContext('2d');
+    ctx.current = canvas.current.getContext('2d', { willReadFrequently: true });
     const particles = [];
   
     // set canvas' width and height

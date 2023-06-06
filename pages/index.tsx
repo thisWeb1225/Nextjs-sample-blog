@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Layout from '../components/rootLayout/index';
-import { siteTitle } from '../components/rootLayout';
+import { siteTitle } from '../components/rootLayout/rootLayout';
 import { getSortedPostsData } from '../lib/posts';
 import { GetStaticProps } from 'next'
 

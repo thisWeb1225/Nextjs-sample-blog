@@ -14,7 +14,7 @@ date: '2023-05-20'
 ## 錯誤的使用方法
 這裡有一個在串接 api 時很常見的錯誤方法:
 
-```js
+```javascript
 // ❌ 不要這樣做
 useEffect(async () => {
   const data = await fetchData();
@@ -29,7 +29,7 @@ useEffect(async () => {
 
 常見的解決辦法是在 `useEffect` 裡宣告一個非同步函式，如下:
 
-```js
+```javascript
 useEffect(() => {
   // 宣告非同步函式
   const fetchData = async () => {
@@ -45,7 +45,7 @@ useEffect(() => {
 
 要注意的是，如果你想使用在非同步函式中獲得的資料，你要在 `fetchData` 內部座使用，而不是外部，如下:
 
-```js
+```javascript
 useEffect(() => {
   const fetchData = async () => {
     const response = await fetch('https://example.com');

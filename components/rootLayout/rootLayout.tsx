@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Menu from '../menu/index';
 import Footer from '../footer';
+import Link from 'next/link';
 
 export const siteTitle: string = 'Kun Yang Portfolio'
 
@@ -26,6 +27,11 @@ const RootLayout = ({
           )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
         />
         <meta name="og:title" content={siteTitle} />
+        <Link
+          rel="preload"
+          href="https://unpkg.com/prismjs@0.0.1/themes/prism-tomorrow.css"
+          as="script"
+        />
       </Head>
 
       {/* px-2 sm:px-8 md:px-24 lg:px-32 */}
