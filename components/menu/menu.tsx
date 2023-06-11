@@ -7,11 +7,11 @@ const menuData = [
     path: '/'
   },
   {
-    name: 'about',
-    path: '/'
+    name: 'posts',
+    path: '/posts'
   },
   {
-    name: 'contact',
+    name: 'project',
     path: '/'
   },
 ]

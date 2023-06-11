@@ -1,7 +1,7 @@
 import { sortedPostsDataType } from "../../lib/posts";
 import PostItem from "./postItem";
 
-const Posts = ({ allSortedPostsData }: {
+const PostsContainer = ({ allSortedPostsData }: {
   allSortedPostsData: sortedPostsDataType[]
 }) => {
   return (
@@ -16,4 +16,4 @@ const Posts = ({ allSortedPostsData }: {
   )
 }
 
-export default Posts;
+export default PostsContainer;

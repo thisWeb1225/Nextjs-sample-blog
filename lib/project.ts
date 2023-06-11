@@ -52,6 +52,20 @@ export function getSortedProjectsData(): SortedProjectsType[] {
 }
 
 /**
+ * Project id for static path
+ */
+export function getAllProjectsIds() {
+  const fileNames = fs.readdirSync(projectsDirectory);
+  return fileNames.map((fileName) => {
+    return {
+      params: {
+        id: fileName.replace(/\.md$/, ''),
+      },
+    };
+  });
+}
+
+/**
  * project data
  */
 // type

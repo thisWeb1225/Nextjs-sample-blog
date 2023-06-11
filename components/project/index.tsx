@@ -1,3 +1,3 @@
-import Project from "./project";
+import Project from "./projectContainer";
 
 export default Project;

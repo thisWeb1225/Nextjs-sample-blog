@@ -37,6 +37,15 @@ const useFollowMouseEffect = (
     parent.current.addEventListener('mousemove', moveEffect as any);
     parent.current.addEventListener('mouseout', leaveEffect as any);
 
+    return () => {
+      // when componet is unmounted, the parent.current is not exist
+      if (parent.current) {
+        parent.current.removeEventListener('mouseenter', enterEffect as any);
+        parent.current.removeEventListener('mousemove', moveEffect as any);
+        parent.current.removeEventListener('mouseout', leaveEffect as any);
+      }
+    }
+
   }, [parent, ...children])
 
 }
