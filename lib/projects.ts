@@ -9,15 +9,19 @@ const projectsDirectory = path.join(process.cwd(), 'projects');
 /**
  * Sorted Projects
  */
-export type SortedProjectsType = {
+export type ProjectsType = {
   id: string,
   title: string,
   date: string,
+  bannerSrc: string,
+  role: string,
   demoUrl?: string,
   githubUrl?: string,
 };
 
-export function getSortedProjectsData(): SortedProjectsType[] {
+type ProjectMetaType = Omit<ProjectsType, 'id'>
+
+export function getSortedProjectsData(): ProjectsType[] {
 
   const fileNames = fs.readdirSync(projectsDirectory);
   
@@ -35,12 +39,7 @@ export function getSortedProjectsData(): SortedProjectsType[] {
     // Combine the data with id
     return {
       id,
-      ...(matterResult.data as {
-        title: string,
-        date: string,
-        demoUrl?: string,
-        githubUrl?: string
-      })
+      ...(matterResult.data as ProjectMetaType)
     };
   });
 
@@ -69,7 +68,7 @@ export function getAllProjectsIds() {
  * project data
  */
 // type
-export type ProjectDataType = SortedProjectsType & {contentHtml: string};
+export type ProjectDataType = ProjectsType & {contentHtml: string};
 
 export async function getProjectData (id: string): Promise<ProjectDataType> {
   const fullPath = path.join(projectsDirectory, `${id}.md`);
@@ -85,11 +84,6 @@ export async function getProjectData (id: string): Promise<ProjectDataType> {
   return {
     id,
     contentHtml,
-    ...(matterResult.data as {
-      title: string,
-      date: string,
-      demoUrl?: string,
-      githubUrl?: string,
-    })
+    ...(matterResult.data as ProjectMetaType)
   }
 }
