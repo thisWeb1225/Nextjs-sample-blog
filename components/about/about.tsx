@@ -22,29 +22,22 @@ const About = () => {
       
       gsap.timeline({scrollTrigger:{
         trigger: about.current,
-        start:  "top 50%",  
-        end:  "bottom top",
-        toggleActions:  "restart none none reset"
+        start:  "top bottom",  
+        end:  "center top",
+        scrub: 1,
       }})
       .from(aboutContentTitle.current, {
-        y: 200,
-        opacity: 0,
-        duration: .8,
-      })
+        y: 300,
+      }, 0)
       .from(aboutContent.current, {
-        y: 200,
-        opacity: 0,
-        duration: .8,
-      }, '-=0.4')
-      // .from(aboutBtnParent.current, {
-      //   opacity: 0,
-      //   rotate: 360,
-      //   duration: .8,
-      // }, '-=0.4');
+        y: 300,
+      }, 0.1)
+      .from(aboutBtnParent.current, {
+        y: 300,
+      }, 0.2);
 
     })
       
-    
     return () => ctx.revert(); // cleanup
     
   }, []); // <- empty dependency Array so it doesn't re-run on every render
