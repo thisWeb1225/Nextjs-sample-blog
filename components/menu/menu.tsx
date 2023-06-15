@@ -1,5 +1,8 @@
-import Image from "next/image"
+import { useRef } from "react"
+
 import MenuItem from "./menuItem"
+
+import useFollowMouseEffect from "../../hooks/useFollowMouseEffect"
 
 const menuData = [
   {
@@ -17,16 +20,16 @@ const menuData = [
 ]
 
 const Menu = () => {
+  const copyContainer = useRef();
+  const copy = useRef();
+
+  useFollowMouseEffect(copyContainer, copy)
+
   return (
-    <nav className=" fixed top-0 left-0 right-0 flex justify-between p items-center px-4 py-2 backdrop-blur-md z-50">
-      <Image
-        priority
-        src="/images/avatar.jpg"
-        alt="avatar"
-        width={300}
-        height={300}
-        className="w-12 max-h-12 rounded-full"
-      />
+    <nav className=" fixed top-0 left-0 right-0 flex justify-between items-center px-4 py-2 backdrop-blur-md z-50">
+      <div ref={copyContainer} className="p-4">
+        <p className="text-xs" ref={copy}>&copy; Kun Yang 2023</p>
+      </div>
       <ul className="flex">
         {menuData.map((item, i) =>
           <MenuItem name={item.name} path={item.path} key={i}/>

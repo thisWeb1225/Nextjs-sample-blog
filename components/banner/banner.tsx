@@ -8,8 +8,8 @@ const Banner = () => {
     setFonts([
       {
         content: 'Hello, I am Yang',
-        color: '#2ecce0',
-        size: 120,
+        color: '#147dfa',
+        size: 100,
         weight: 800,
         x: window.innerWidth / 2,
         y: window.innerHeight / 2,

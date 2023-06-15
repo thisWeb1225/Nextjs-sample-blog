@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { siteTitle } from '../components/rootLayout/rootLayout';
 import { GetStaticProps } from 'next'
 import { getSortedPostsData } from '../lib/posts';
-import { getSortedProjectsData } from '../lib/project';
+import { getSortedProjectsData } from '../lib/projects';
 
 import RootLayout from '../components/rootLayout/index';
 import Banner from '../components/banner/index';
@@ -12,8 +12,6 @@ import Project from '../components/project/index';
 import Posts from '../components/posts/index';
 
 export default function Home({ allSortedPostsData, allSortedProjectsData }) {
-  console.log(allSortedProjectsData)
-
   return (
     <RootLayout home>
       <Head>

@@ -2,63 +2,52 @@ import Image from "next/image"
 import Link from "next/link";
 
 import { useEffect, useRef } from "react";
+import { MouseEvent } from "react";
 
-import { ProjectDataAndPositionType } from "./projectContainer";
+import { ProjectDataType } from "../../lib/projects";
 /**
  * 
  * src: string,
- * x: number,
- * y: number
  * id: string,
  * title: string,
  * date: string,
+ * role: string,
  * demoUrl?: string,
  * githubUrl?: string,
  * contentHtml: string,
  * 
  */
 
-type a = {
-  src: string,
-  x: number,
-  y: number
-  id: string,
-  title: string,
-  date: string,
-  demoUrl?: string,
-  githubUrl?: string,
-  contentHtml: string,
-}
+type prop = Omit<ProjectDataType, 'contentHtml'>;
 
-type Prop = Omit<ProjectDataAndPositionType, 'contentHtml'>
+const ProjectItem = ({bannerSrc, id, title, role, date}: prop) => {
+  const img = useRef<HTMLImageElement>();
 
-const ProjectItem = ({src, x, y, id, title, date}: Prop) => {
+  const showImg = (e:MouseEvent<HTMLDivElement>) => {
+    if (!img.current) return;
+    const targetRect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - targetRect.left;
+    const y = e.clientY - targetRect.top;
 
-  const imgBox = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    imgBox.current.style.setProperty('--x', `${x}%`);
-    imgBox.current.style.setProperty('--y', `${y}%`);
-  }, [imgBox])
+    img.current.style.translate = `${x - 120}px ${y - 120}px`
+  }
 
   return (
-    <Link href={`/projects/${id}`}>
-      <div className="absolute left-[var(--x)] top-[var(--y)] group hover:scale-125 duration-700 project__img" ref={imgBox}>
-        <Image
-          src={src}
-          alt={title}
-          width={200}
-          height={200}
-          className="object-cover shadow-tw-shadow duration-500"
-        />
-        <div className="flex flex-col items-center mt-2 invisible opacity-0 duration-500 group-hover:visible group-hover:opacity-100">
-          <p className="text-[14px] text-tw-gray">
-            {date}
-          </p>
-          <p className="text-tw-primary text-xs">
+    <Link href={`/projects/${id}`} >
+      <div className="flex py-12 border-b-[1px] border-tw-gray justify-between items-center relative group" onMouseMove={showImg}>
+        <div className="bg-tw-gray w-[240px] aspect-square grid place-content-center opacity-0 scale-0 absolute top-0 left-0 duration-500 ease-linear group-hover:opacity-100 group-hover:scale-100 pointer-events-none" ref={img}>
+          <Image
+            src={bannerSrc}
+            alt={title}
+            width={200}
+            height={200}
+            className="object-cover shadow-tw-shadow"
+          />
+        </div>
+          <p className="text-tw-primary text-4xl uppercase">
             {title}
           </p>
-        </div>
+          <p className="text-tw-gray text-xs">{role}</p>
       </div>
     </Link>
 

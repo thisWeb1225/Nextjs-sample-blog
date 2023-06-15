@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import '../styles/page.css'
 import { AppProps } from 'next/app'
 import "prismjs/themes/prism-tomorrow.min.css";
 
