@@ -9,7 +9,7 @@ const projectsDirectory = path.join(process.cwd(), 'projects');
 /**
  * Sorted Projects
  */
-export type ProjectsType = {
+export type ProjectType = {
   id: string,
   title: string,
   date: string,
@@ -19,9 +19,9 @@ export type ProjectsType = {
   githubUrl?: string,
 };
 
-type ProjectMetaType = Omit<ProjectsType, 'id'>
+type ProjectMetaType = Omit<ProjectType, 'id'>
 
-export function getSortedProjectsData(): ProjectsType[] {
+export function getSortedProjectsData(): ProjectType[] {
 
   const fileNames = fs.readdirSync(projectsDirectory);
   
@@ -68,9 +68,9 @@ export function getAllProjectsIds() {
  * project data
  */
 // type
-export type ProjectDataType = ProjectsType & {contentHtml: string};
+export type ProjectTypeWithHtml = ProjectType & {contentHtml: string};
 
-export async function getProjectData (id: string): Promise<ProjectDataType> {
+export async function getProjectData (id: string): Promise<ProjectTypeWithHtml> {
   const fullPath = path.join(projectsDirectory, `${id}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
 
