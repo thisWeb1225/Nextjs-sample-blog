@@ -8,7 +8,7 @@ import { getSortedProjectsData } from '../lib/projects';
 import RootLayout from '../components/rootLayout/index';
 import Banner from '../components/banner/index';
 import About from '../components/about/index';
-import Project from '../components/project/index';
+import ProjectContainer from '../components/project/index';
 import Posts from '../components/posts/index';
 
 export default function Home({ allSortedPostsData, allSortedProjectsData }) {
@@ -20,7 +20,7 @@ export default function Home({ allSortedPostsData, allSortedProjectsData }) {
 
       <Banner></Banner>
       <About></About>
-      <Project allSortedProjectsData={allSortedProjectsData}></Project>
+      <ProjectContainer allSortedProjectsData={allSortedProjectsData}></ProjectContainer>
       <Posts allSortedPostsData={allSortedPostsData}></Posts>
 
     </RootLayout>

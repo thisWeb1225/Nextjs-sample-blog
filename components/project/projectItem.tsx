@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { MouseEvent } from "react";
 
-import { ProjectDataType } from "../../lib/projects";
+import { ProjectTypeWithHtml } from "../../lib/projects";
 /**
  * 
  * src: string,
@@ -18,9 +18,9 @@ import { ProjectDataType } from "../../lib/projects";
  * 
  */
 
-type prop = Omit<ProjectDataType, 'contentHtml'>;
+type PropType = Omit<ProjectTypeWithHtml, 'contentHtml'>;
 
-const ProjectItem = ({bannerSrc, id, title, role, date}: prop) => {
+const ProjectItem = ({bannerSrc, id, title, role, date}: PropType) => {
   const img = useRef<HTMLImageElement>();
 
   const showImg = (e:MouseEvent<HTMLDivElement>) => {
@@ -44,7 +44,7 @@ const ProjectItem = ({bannerSrc, id, title, role, date}: prop) => {
             className="object-cover shadow-tw-shadow"
           />
         </div>
-          <p className="text-tw-primary text-4xl uppercase">
+          <p className="text-tw-primary text-4xl uppercase duration-500 group-hover:saturate-[0.2]">
             {title}
           </p>
           <p className="text-tw-gray text-xs">{role}</p>

@@ -15,7 +15,7 @@ const menuData = [
   },
   {
     name: 'project',
-    path: '/'
+    path: '/projects'
   },
 ]
 

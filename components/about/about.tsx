@@ -50,7 +50,7 @@ const About = () => {
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
-    <div className="mt-16 grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center py-16 px-2 sm:px-8 md:px-24 lg:px-32 border-neutral-600 rounded-md" ref={about}>
+    <div className="mt-36 grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center sm:px-8 md:px-24 lg:px-32 border-neutral-600 rounded-md" ref={about}>
       <div className="text-left flex flex-col gap-8">
         <p  className="text-tw text-4xl font-extrabold uppercase text-tw-primary border-b-[1px] border-gray-600 pb-8" ref={aboutContentTitle}>
           " Creating Web Is an Art "

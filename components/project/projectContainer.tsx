@@ -1,6 +1,6 @@
 import { useRef, MouseEvent, useEffect, useCallback } from "react";
 
-import { ProjectDataType } from "../../lib/projects";
+import { ProjectTypeWithHtml } from "../../lib/projects";
 
 import ProjectItem from "./projectItem";
 
@@ -18,13 +18,14 @@ import ProjectItem from "./projectItem";
  * 
  */
 
-const Project = ({allSortedProjectsData}: {
-  allSortedProjectsData: ProjectDataType[]
-}) => {
+type PropType = {
+  allSortedProjectsData: ProjectTypeWithHtml[]
+}
 
+const ProjectContainer = ({allSortedProjectsData}: PropType) => {
 
   return (
-    <div className="px-2 sm:px-8 md:px-24 lg:px-32">
+    <div className="px-2 sm:px-8 md:px-24 lg:px-32 mt-36">
       <h3 className="text-xl text-tw-gray font-bold" >My Projects</h3>
       <div className="mt-16 flex flex-col">
         {allSortedProjectsData.map((project, i) =>
@@ -41,4 +42,4 @@ const Project = ({allSortedProjectsData}: {
   )
 }
 
-export default Project;
+export default ProjectContainer;
