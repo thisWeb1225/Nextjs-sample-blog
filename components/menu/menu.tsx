@@ -1,8 +1,10 @@
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 
 import MenuItem from "./menuItem"
 
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect"
+
+import { gsap } from "gsap"
 
 const menuData = [
   {
@@ -19,11 +21,45 @@ const menuData = [
   },
 ]
 
+// useEffect(() => {
+
+//   let ctx = gsap.context(() => {
+    
+//     gsap.timeline({scrollTrigger:{
+//       trigger: project.current,
+//       start:  "top bottom",  
+//       end:  "center center",
+//       scrub: 1,
+//     }})
+//     .from(projectTitle.current, {
+//       y: 300,
+//     }, 0)
+//     .from(projectItemContainer.current, {
+//       y: 300,
+//     }, 0.1)
+
+//   })
+    
+//   return () => ctx.revert(); // cleanup
+  
+// }, []); // <- empty dependency Array so it doesn't re-run on every render
+
 const Menu = () => {
   const copyContainer = useRef();
   const copy = useRef();
 
-  useFollowMouseEffect(copyContainer, copy)
+  useFollowMouseEffect(copyContainer, copy);
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.from(copyContainer.current, {
+        x: -100,
+        opacity: 0,
+        duration: 1.4,
+      })
+    })
+    return () => ctx.revert()
+  }, [])
 
   return (
     <nav className=" fixed top-0 left-0 right-0 flex justify-between items-center px-4 py-2 backdrop-blur-md z-50">
@@ -32,7 +68,12 @@ const Menu = () => {
       </div>
       <ul className="flex">
         {menuData.map((item, i) =>
-          <MenuItem name={item.name} path={item.path} key={i}/>
+          <MenuItem 
+            name={item.name} 
+            path={item.path} 
+            key={i}
+            gsapDelay={(i + 1) * 0.4}  
+          />
         )}
       </ul>
     </nav>

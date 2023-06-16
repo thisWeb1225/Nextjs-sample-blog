@@ -1,17 +1,16 @@
 import Head from 'next/head';
 import Menu from '../menu/index';
-import Footer from '../footer';
-import Link from 'next/link';
+import Footer from '../footer/index';
+import HomeBg from './homeBg';
 
 export const siteTitle: string = 'Kun Yang Portfolio'
 
-const RootLayout = ({
-  children,
-  home
-}: {
+type RootLayoutProps = {
   children: React.ReactNode,
   home?: boolean
-}) => {
+}
+
+const RootLayout = ({ children, home }: RootLayoutProps) => {
   return (
     <>
       <Head>
@@ -37,49 +36,10 @@ const RootLayout = ({
       {/* px-2 sm:px-8 md:px-24 lg:px-32 */}
       <div className='bg-tw-dark text-tw-white text-sm relative overflow-x-hidden'>
         <Menu></Menu>
+        {home && <HomeBg></HomeBg>}
         {children}
         <Footer></Footer>
       </div>
-
-      {/* <header className={styles.header}>
-        {home ? (
-          <>
-            <Image 
-              priority
-              src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt="avatar"
-            />
-            <h1 className={utilStyles.heading2X1}>{name}</h1>
-          </>
-        ) : (
-          <>
-           <Link href="/">
-              <Image
-                priority
-                src="/images/profile.jpg"
-                className={utilStyles.borderCircle}
-                height={108}
-                width={108}
-                alt=""
-              />
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/" className={utilStyles.colorInherit}>
-                {name}
-              </Link>
-            </h2>
-          </>
-        )}
-      </header>
-      <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">← Back to home</Link>
-        </div>
-      )} */}
     </>
   );
 };

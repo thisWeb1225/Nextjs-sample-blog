@@ -58,7 +58,7 @@ const ProjectContainer = ({allSortedProjectsData}: PropType) => {
   return (
     <div className="px-2 sm:px-8 md:px-24 lg:px-32 mt-36" ref={project}>
       <h3 className="text-xl text-tw-gray font-bold" ref={projectTitle}>My Projects</h3>
-      <div className="mt-16 flex flex-col" ref={projectItemContainer}>
+      <div className="mt-10 flex flex-col" ref={projectItemContainer}>
         {allSortedProjectsData.map((project, i) =>
           <ProjectItem
             id={project.id}

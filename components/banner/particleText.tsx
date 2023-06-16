@@ -94,6 +94,9 @@ const ParticleText = ({fonts}: Props) => {
           }
         }
       }
+      for (let i = 0; i < 5000; i ++) {
+        particles.push(new Particle(ctx.current, canvas.width, canvas.height, gap, Math.random() * canvas.width , Math.random() * canvas.height, '#147dfa'))
+      }
     }
 
     const updateParticles = () => {

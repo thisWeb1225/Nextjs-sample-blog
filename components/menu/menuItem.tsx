@@ -1,15 +1,33 @@
-import {useRef } from "react"
+import { useRef, useEffect } from "react"
 import Link from "next/link"
+
+import { gsap } from "gsap";
+
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect";
 
-const MenuItem = ({ name, path }: {
+type menuItemProps = {
   name: string,
   path: string,
-}) => {
+  gsapDelay: number
+}
+
+const MenuItem = ({ name, path, gsapDelay }: menuItemProps) => {
 
   const menuItemParent = useRef(null);
   const menuItemChild = useRef(null);
-  useFollowMouseEffect(menuItemParent, menuItemChild)
+  useFollowMouseEffect(menuItemParent, menuItemChild);
+
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.from(menuItemChild.current, {
+        x: -100,
+        opacity: 0,
+        duration: 1.4,
+        delay: gsapDelay,
+      })
+    })
+    return () => ctx.revert()
+  }, [])
 
   return (
     <li className="text-center uppercase text-xs p-4 group" ref={menuItemParent}>
