@@ -1,6 +1,8 @@
 import { useRef, useEffect } from "react";
 import Particle from "./Particle";
 
+import Head from "next/head";
+
 export type TextOptions = {
   content: string,
   size: number,
@@ -16,12 +18,12 @@ export type MouseType = {
   radius?: number
 }
 
-type Props = {
+type ParticleTextProps = {
   fonts: TextOptions[]
 }
 
-const ParticleText = ({fonts}: Props) => {
-  const mouseRadius = 120;
+const ParticleText = ({fonts}: ParticleTextProps) => {
+  const mouseRadius = 80;
 
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
@@ -37,14 +39,14 @@ const ParticleText = ({fonts}: Props) => {
     ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
   }
 
-  const darwText = (ctx, fonts) => {
+  const darwText = (ctx: CanvasRenderingContext2D, fonts: TextOptions[]) => {
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
     fonts.forEach((font) => {
       const {content, size, weight, color, x, y} = font
       ctx.fillStyle = color;
-      ctx.font = `${weight} ${size}px sans-serif`;
+      ctx.font = `${weight} ${size}px Inter`;
       ctx.fillText(content, x, y);
     })
   }
@@ -63,7 +65,7 @@ const ParticleText = ({fonts}: Props) => {
     canvas.current.addEventListener('mousemove', mouseMove);
     
     // Parameter
-    let frameId;
+    let frameId: number;
     ctx.current = canvas.current.getContext('2d', { willReadFrequently: true });
     const particles = [];
   
@@ -85,7 +87,9 @@ const ParticleText = ({fonts}: Props) => {
         for (let x = 0; x < canvas.width; x += gap) {
           const index = (y * canvas.width + x) * 4;
           const alpha = pixels[index + 3];
+          // if the chunk has color (means the chunk is not transparnet), create a new particle
           if (alpha > 0) {
+            // get every chunk's color and create a new particle
             const red = pixels[index];
             const green = pixels[index + 1];
             const blue = pixels[index + 2];
@@ -94,11 +98,9 @@ const ParticleText = ({fonts}: Props) => {
           }
         }
       }
-      for (let i = 0; i < 5000; i ++) {
-        particles.push(new Particle(ctx.current, canvas.width, canvas.height, gap, Math.random() * canvas.width , Math.random() * canvas.height, '#147dfa'))
-      }
     }
 
+    // update every particles
     const updateParticles = () => {
       particles.forEach(particle => {
         particle.draw();
@@ -128,7 +130,7 @@ const ParticleText = ({fonts}: Props) => {
     }
 
     init();
-    window.addEventListener('resize', init)
+    window.addEventListener('resize', init);
 
     return () => {
       window.removeEventListener('resize', init);

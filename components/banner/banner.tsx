@@ -7,6 +7,14 @@ const Banner = () => {
   const setTextPosition = () => {
     setFonts([
       {
+        content: 'Design & Develope website',
+        color: '#ffffff',
+        size: 18,
+        weight: 300,
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2 - 160,
+      },
+      {
         content: 'Hello, I am Yang',
         color: '#147dfa',
         size: 100,
@@ -18,7 +26,7 @@ const Banner = () => {
         content: 'I am a front-end Developer',
         color: '#ffffff',
         size: 24,
-        weight: 400,
+        weight: 300,
         x: window.innerWidth / 2,
         y: window.innerHeight / 2 + 160,
       },
@@ -26,7 +34,7 @@ const Banner = () => {
         content: 'I will make your website unique',
         color: '#ffffff',
         size: 24,
-        weight: 400,
+        weight: 300,
         x: window.innerWidth / 2,
         y: window.innerHeight / 2 + 200,
       }
