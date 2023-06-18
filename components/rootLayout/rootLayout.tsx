@@ -1,7 +1,10 @@
+import { useRef, MouseEvent } from 'react';
+
 import Head from 'next/head';
 import Menu from '../menu/index';
 import Footer from '../footer/index';
 import HomeBg from './homeBg';
+import Mouse from '../mouse/index';
 
 export const siteTitle: string = 'Kun Yang Portfolio'
 
@@ -11,6 +14,18 @@ type RootLayoutProps = {
 }
 
 const RootLayout = ({ children, home }: RootLayoutProps) => {
+
+  const mouse = useRef<HTMLDivElement>();
+
+  const mouseMove = (e: MouseEvent) => {
+    if (!mouse.current) return;
+    const x = e.pageX;
+    const y = e.pageY;
+    // mouse.current.style.transform = `translate(${x}px, ${y}px)`;
+    mouse.current.style.setProperty('--x', `${x}px`);
+    mouse.current.style.setProperty('--y', `${y}px`);
+  }
+
   return (
     <>
       <Head>
@@ -33,8 +48,13 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
         />
       </Head>
 
-      {/* px-2 sm:px-8 md:px-24 lg:px-32 */}
-      <div className='bg-tw-dark text-tw-white text-sm relative overflow-x-hidden'>
+      {
+        /**
+         * Body
+         */
+      }
+      <div className='bg-tw-dark text-tw-white text-sm relative overflow-x-hidden' onMouseMove={mouseMove}>
+        <Mouse ref={mouse}></Mouse>
         <Menu></Menu>
         {home && <HomeBg></HomeBg>}
         {children}

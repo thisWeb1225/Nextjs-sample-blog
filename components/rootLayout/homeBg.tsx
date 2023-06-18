@@ -12,21 +12,19 @@ const HomeBg = () => {
   useEffect(() => {
     const width = bgParent.current.clientWidth;
     const height = bgParent.current.clientHeight;
-    console.log(height)
-
+    
     const ctx = gsap.context(() => {
       gsap.timeline({
         scrollTrigger: {
           start:  "100 top",  
           end:  "bottom top",
-          markers: true,
           scrub: 2,
         }
       })
       .fromTo(bg.current, {
         x: 0,
-        y: 0,
-        scale: 4,
+        y: height,
+        scale: 6,
       }, {
         x: width,
         y: 0,
@@ -35,7 +33,7 @@ const HomeBg = () => {
       .to(bg.current, {
         x: width + 200,
         y: 80,
-        scale: 16,
+        scale: 10,
       })
       .to(bg.current, {
         x: 0,
@@ -59,7 +57,7 @@ const HomeBg = () => {
 
   return (
     <div className="fixed top-0 left-0 w-screen h-screen pointer-events-none" ref={bgParent}>
-      <div className="w-14 aspect-square bg-orange-500 blur-xl opacity-40 absolute -left-14" ref={bg}></div>
+      <div className="w-14 h-14 bg-tw-secondary blur-md opacity-20 absolute -left-14 animate-homeBgFlow" ref={bg}></div>
     </div>
   )
 }
