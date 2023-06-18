@@ -40,9 +40,9 @@ const PostsContainer = ({ allSortedPostsData }: {
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
-    <div className="mt-36" ref={post}>
-      <h3 className="text-xl font-bold text-tw-gray mx-2 sm:mx-8 md:mx-24 lg:mx-32 border-gray-600" ref={postTitle}>My Posts</h3>
-      <ul className="grid grid-cols-3 gap-8 mt-10 px-2 sm:px-8 md:px-24 lg:px-32" ref={postItemContainer}>
+    <div className="mt-36 tw-spacing" ref={post}>
+      <h3 className="text-xl font-bold text-tw-gray border-gray-600" ref={postTitle}>My Posts</h3>
+      <ul className="grid md:grid-cols-3 gap-8 mt-10" ref={postItemContainer}>
         {allSortedPostsData.map(({ id, date, title }) => (
           <PostItem id={id} date={date} title={title} key={id}/>
         ))}

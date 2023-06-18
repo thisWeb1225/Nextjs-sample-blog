@@ -41,13 +41,13 @@ const ProjectItem = ({bannerSrc, id, title, role, date}: PropType) => {
             alt={title}
             width={200}
             height={200}
-            className="object-cover shadow-tw-shadow"
+            className="object-cover shadow-tw-shadow pointer-events-none"
           />
         </div>
-          <p className="text-tw-primary text-4xl uppercase duration-500 group-hover:saturate-[0.2]">
+          <p className="text-tw-primary text-4xl uppercase duration-500 group-hover:text-orange-500 pointer-events-none">
             {title}
           </p>
-          <p className="text-tw-gray text-xs">{role}</p>
+          <p className="text-tw-gray text-xs text-right pl-2">{role}</p>
       </div>
     </Link>
 

@@ -19,8 +19,8 @@ const PostItem = ({ id, date, title }: sortedPostsDataType) => {
   
 
   return (
-    <li key={id} className={`min-h-[360px] text-center border-[1px] border-gray-600 hover:border-tw-gray duration-500 rounded-md group relative bg-[rgba(0,0,0,0.3)] ${styles.postItem}`} ref={post}>
-      <Link href={`/posts/${id}`} className="h-full p-8 flex flex-col justify-center relative z-10">
+    <li key={id} className={`min-h-[300px] text-center border-[1px] border-gray-600 hover:border-tw-gray duration-500 rounded-md group relative bg-[rgba(0,0,0,0.3)] ${styles.postItem}`} ref={post}>
+      <Link href={`/posts/${id}`} className="h-full p-8 flex flex-col gap-4 justify-center relative z-10">
         <h3 className="text-base text-gray-600 duration-500 group-hover:text-tw-white">{title}</h3>
         <p className="text-xs text-tw-gray">{date}</p>
       </Link>

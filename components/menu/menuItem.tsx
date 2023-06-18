@@ -22,7 +22,7 @@ const MenuItem = ({ name, path, gsapDelay }: menuItemProps) => {
       gsap.from(menuItemChild.current, {
         x: -100,
         opacity: 0,
-        duration: 1.4,
+        duration: 1,
         delay: gsapDelay,
       })
     })
@@ -30,7 +30,7 @@ const MenuItem = ({ name, path, gsapDelay }: menuItemProps) => {
   }, [])
 
   return (
-    <li className="text-center uppercase text-xs p-4 group" ref={menuItemParent}>
+    <li className="text-center text-xs p-2 md:p-4 group" ref={menuItemParent}>
       <Link href={path} ref={menuItemChild} className="block relative before:absolute before:w-2 before:aspect-square before:left-1/2 before:rounded-full before:-translate-x-1/2 before:bg-tw-white before:opacity-0 before:-bottom-6 before:duration-500 group-hover:before:-bottom-4 group-hover:before:opacity-100">{name}</Link>
     </li>
   )
