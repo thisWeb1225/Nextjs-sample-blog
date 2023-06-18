@@ -8,11 +8,23 @@
   body,
   html {
     overflow-x: visible;
+    cursor: none;
+  }
+  a {
+    cursor: none;
   }
 }
 
-.project__gallery:has(.project__img:hover) > .project__img:not(:hover) > img {
-  filter: saturate(0.1);
+.tw-spacing {
+  @apply mx-4 sm:mx-8 md:mx-24 lg:mx-32
+}
+
+.tw-link {
+  @apply bg-gradient-to-r from-tw-secondary to-tw-secondary pb-1 bg-[length:0_2px] bg-no-repeat bg-[0_100%] duration-300 hover:bg-[length:100%_2px]
+}
+
+.tw-line {
+  @apply w-full h-[1px] bg-tw-gray
 }
 
 .text-stroke-primary {
