@@ -52,19 +52,19 @@
   @apply leading-relaxed;
 }
 .tw-post h1 {
-  @apply text-3xl font-extrabold;
+  @apply text-4xl font-extrabold mt-8 mb-2 bg-gradient-to-r from-tw-primary to-purple-600 inline-block bg-clip-text text-transparent;
 }
 .tw-post h2 {
-  @apply text-2xl font-bold;
+  @apply text-3xl font-extrabold mt-16 bg-gradient-to-r from-tw-primary to-purple-600 inline-block bg-clip-text text-transparent;
 }
 .tw-post h3 {
-  @apply text-xl font-bold;
-}
-.tw-post :is(h1, h2, h3) {
-  @apply text-tw-primary mt-8 mb-2;
+  @apply text-lg font-bold mt-4 mb-2 text-tw-primary;
 }
 .tw-post li {
   @apply pl-4 list-inside;
+}
+.tw-post ul, .tw-post ol {
+  @apply mt-4
 }
 .tw-post ul li {
   @apply list-disc;
@@ -72,5 +72,12 @@
 .tw-post ol li {
   @apply list-decimal;
 }
-
+.tw-post p img {
+  width: 80%;
+}
+@media (width < 480px) {
+  .tw-post p img {
+    width: 100%;
+  }
+}
 
