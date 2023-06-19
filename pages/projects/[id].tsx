@@ -14,8 +14,8 @@ export default function Project({ postData }) {
       <article className='px-2 sm:px-8 md:px-24 lg:px-32 pt-24 tw-post'>
         <Image 
           src={postData.bannerSrc}
-          width={400}
-          height={400}
+          width={640}
+          height={500}
           alt={postData.title}
           className='rounded-md border border-tw-gray relative left-1/2 -translate-x-1/2'
         />

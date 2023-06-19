@@ -47,7 +47,7 @@ const ProjectContainer = ({allSortedProjectsData}: PropType) => {
       }, 0)
       .from(projectItemContainer.current, {
         y: 300,
-      }, 0.1)
+      }, 0.2)
 
     })
       

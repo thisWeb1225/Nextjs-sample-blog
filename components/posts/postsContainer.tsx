@@ -31,7 +31,7 @@ const PostsContainer = ({ allSortedPostsData }: {
       }, 0)
       .from(postItemContainer.current, {
         y: 300,
-      }, 0.1)
+      }, 0.2)
 
     })
       
