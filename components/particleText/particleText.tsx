@@ -1,15 +1,17 @@
 import { useRef, useEffect } from "react";
-import Particle from "./Particle";
+import Particle from "../../lib/Particle";
 
-import Head from "next/head";
-
-export type TextOptions = {
+export type textOptionsType = {
   content: string,
   size: number,
   weight: number | string,
   color: string,
   x: number,
-  y: number
+  y: number,
+  center?: {
+    x: 'start' | 'center' | 'end',
+    y: 'bottom' | 'middle' | 'top',
+  }
 }
 
 export type MouseType = {
@@ -19,19 +21,27 @@ export type MouseType = {
 }
 
 type ParticleTextProps = {
-  fonts: TextOptions[]
+  texts: textOptionsType[],
+  canvasContainer: HTMLElement
 }
 
-const ParticleText = ({fonts}: ParticleTextProps) => {
+const ParticleText = ({texts, canvasContainer}: ParticleTextProps) => {
   const mouseRadius = 80;
 
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
-  const mouse = useRef<MouseType>({ x: 0, y: 0, radius: mouseRadius });
+  const mouse = useRef<MouseType>({ x: 0, y: 0, radius: 0 });
 
-  const canvasResize = (canvas: HTMLCanvasElement) => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+  const canvasResize = (canvas: HTMLCanvasElement, canvasContainer: HTMLElement) => {
+    if (canvasContainer) {
+      const containerRect = canvasContainer.getBoundingClientRect();
+      canvas.width = containerRect.width;
+      canvas.height = containerRect.height;
+    } else {
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+    }
+    
   }
 
   const clearCanvas = (ctx: CanvasRenderingContext2D) => {
@@ -39,12 +49,14 @@ const ParticleText = ({fonts}: ParticleTextProps) => {
     ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
   }
 
-  const darwText = (ctx: CanvasRenderingContext2D, fonts: TextOptions[]) => {
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+  const darwText = (ctx: CanvasRenderingContext2D, texts: textOptionsType[]) => {
 
-    fonts.forEach((font) => {
-      const {content, size, weight, color, x, y} = font
+    texts.forEach((text) => {
+      const {content, size, weight, color, x, y, center} = text;
+
+      ctx.textAlign = center?.x || 'center';
+      ctx.textBaseline = center?.y || 'middle';
+
       ctx.fillStyle = color;
       ctx.font = `${weight} ${size}px Inter`;
       ctx.fillText(content, x, y);
@@ -53,7 +65,7 @@ const ParticleText = ({fonts}: ParticleTextProps) => {
 
   // when component mounted, set the canvas animation
   useEffect(() => {
-    if (!fonts || !canvas.current) return;
+    if (!texts || !canvas.current) return;
 
     // set mouse position
     const mouseMove = (e) => {
@@ -62,7 +74,12 @@ const ParticleText = ({fonts}: ParticleTextProps) => {
       mouse.current.y = e.clientY - canvasRect.top;
       mouse.current.radius = mouseRadius;
     }
+    // if mouse out the container
+    const mouseLeave = () => {
+      mouse.current.radius = 0;
+    }
     canvas.current.addEventListener('mousemove', mouseMove);
+    canvas.current.addEventListener('mouseleave', mouseLeave);
     
     // Parameter
     let frameId: number;
@@ -70,12 +87,12 @@ const ParticleText = ({fonts}: ParticleTextProps) => {
     const particles = [];
   
     // set canvas' width and height
-    canvasResize(canvas.current);
+    canvasResize(canvas.current, canvasContainer);
 
     // generate Paritcle
     const generateParticle = (canvas: HTMLCanvasElement) => {
       
-      darwText(ctx.current, fonts);
+      darwText(ctx.current, texts);
       const pixels = ctx.current.getImageData(0, 0, canvas.width, canvas.height).data;
 
       // when get the pixels, clear the canvas' text
@@ -118,7 +135,7 @@ const ParticleText = ({fonts}: ParticleTextProps) => {
     const init = () => {
       if (frameId) cancelAnimationFrame(frameId);
       // clear old data
-      canvasResize(canvas.current);
+      canvasResize(canvas.current, canvasContainer);
       clearCanvas(ctx.current);
 
       // clear old particle
@@ -137,7 +154,7 @@ const ParticleText = ({fonts}: ParticleTextProps) => {
       cancelAnimationFrame(frameId);
     }
 
-  }, [canvas, fonts])
+  }, [canvas, texts])
 
   return <canvas ref={canvas}></canvas>
 

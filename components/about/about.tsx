@@ -1,20 +1,25 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect";
+
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
+import ParticleText, {textOptionsType} from "../particleText/particleText";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
 
   const about = useRef(null);
   const aboutContent = useRef(null);
-  const aboutContentTitle = useRef(null);
+  const aboutContentTitle = useRef<HTMLDivElement>(null);
   const aboutBtnParent = useRef(null);
   const aboutBtnChild1 = useRef(null);
   const aboutBtnChild2 = useRef(null);
   useFollowMouseEffect(aboutBtnParent, aboutBtnChild1, aboutBtnChild2);
+
+  let [particleText, setParticleText] = useState<textOptionsType[] | []>([]);
 
   useEffect(() => {
 
@@ -38,6 +43,23 @@ const About = () => {
 
     })
       
+
+    const aboutContentTitleRect = aboutContentTitle.current.getBoundingClientRect();
+    setParticleText([
+      {
+        content: '" Creating Web Is an Art "',
+        color: '#147dfa',
+        size: 48,
+        weight: 600,
+        x: 0,
+        y: aboutContentTitleRect.height/2,
+        center: {
+          x: 'start',
+          y: 'middle',
+        }
+      }
+    ])
+
     return () => ctx.revert(); // cleanup
     
   }, []); // <- empty dependency Array so it doesn't re-run on every render
@@ -45,9 +67,10 @@ const About = () => {
   return (
     <div className="mt-36 grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center tw-spacing rounded-md" ref={about}>
       <div className="text-left flex flex-col gap-8">
-        <p  className="text-tw text-4xl font-extrabold uppercase text-tw-primary border-b-[1px] border-tw-gray pb-8" ref={aboutContentTitle}>
-          " Creating Web Is an Art "
-        </p>
+        <div className="h-24 border-b-[1px] border-x-tw-gray" ref={aboutContentTitle}>
+          {/* " Creating Web Is an Art " */}
+        <ParticleText texts={particleText} canvasContainer={aboutContentTitle.current}></ParticleText>
+        </div>
         <p ref={aboutContent}>
           I love UI design and web's animation design.
           <br />

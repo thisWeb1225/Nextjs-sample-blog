@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import ParticleText, { TextOptions } from "./particleText";
+import { useEffect, useState, useRef } from "react";
+// import ParticleText, { TextOptions } from "./particleText";
+import ParticleText, { textOptionsType } from "../particleText/particleText";
 
 const Banner = () => {
 
-  let [fonts, setFonts] = useState<TextOptions[] | []>([]);
+  const canvasContainer = useRef();
+
+  let [fonts, setFonts] = useState<textOptionsType[] | []>([]);
   const setTextPosition = () => {
     setFonts([
       {
@@ -49,8 +52,8 @@ const Banner = () => {
 
 
   return (
-    <div className="w-screen h-screen">
-      <ParticleText fonts={fonts}></ParticleText>
+    <div className="w-screen h-screen" ref={canvasContainer}>
+      <ParticleText texts={fonts} canvasContainer={canvasContainer.current}></ParticleText>
     </div>
   )
 }
