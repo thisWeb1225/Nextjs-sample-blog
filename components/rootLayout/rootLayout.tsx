@@ -6,6 +6,8 @@ import Footer from '../footer/index';
 import HomeBg from './homeBg';
 import Mouse from '../mouse/index';
 
+import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+
 export const siteTitle: string = 'Kun Yang Portfolio'
 
 type RootLayoutProps = {
@@ -24,6 +26,11 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
     // mouse.current.style.transform = `translate(${x}px, ${y}px)`;
     mouse.current.style.setProperty('--x', `${x}px`);
     mouse.current.style.setProperty('--y', `${y}px`);
+  }
+
+  const lenisOption = {
+    lerp: 0.4,
+    duration: 2,
   }
 
   return (
@@ -53,13 +60,15 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
          * Body
          */
       }
-      <div className='bg-tw-dark text-tw-white text-sm relative overflow-x-hidden' onMouseMove={mouseMove}>
-        <Mouse ref={mouse}></Mouse>
-        <Menu></Menu>
-        {home && <HomeBg></HomeBg>}
-        {children}
-        <Footer></Footer>
-      </div>
+      <ReactLenis root options={lenisOption}>
+        <div className='bg-tw-dark text-tw-white text-sm relative overflow-hidden' onMouseMove={mouseMove}>
+          <Mouse ref={mouse}></Mouse>
+          <Menu></Menu>
+          {home && <HomeBg></HomeBg>}
+          {children}
+          <Footer></Footer>
+        </div>
+      </ReactLenis>
     </>
   );
 };
