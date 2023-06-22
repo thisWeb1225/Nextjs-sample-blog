@@ -22,7 +22,7 @@ const MenuItem = ({ name, path, gsapDelay }: menuItemProps) => {
       gsap.from(menuItemChild.current, {
         x: -100,
         opacity: 0,
-        duration: 1,
+        duration: 0.5,
         delay: gsapDelay,
       })
     })

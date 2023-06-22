@@ -32,7 +32,7 @@ const Menu = () => {
       gsap.from(copyContainer.current, {
         x: -100,
         opacity: 0,
-        duration: 1,
+        duration: 0.5,
       })
     })
     return () => ctx.revert()
@@ -49,7 +49,7 @@ const Menu = () => {
             name={item.name} 
             path={item.path} 
             key={i}
-            gsapDelay={(i + 1) * 0.4}  
+            gsapDelay={(i + 1) * 0.2}  
           />
         )}
       </ul>

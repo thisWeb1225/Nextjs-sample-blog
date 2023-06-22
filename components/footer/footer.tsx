@@ -63,7 +63,7 @@ const Footer = () => {
   }, []); // <- empty dependency Array so it doesn't re-run on 
 
   return (
-    <div className="tw-spacing mt-36 pb-40 grid gap-8" ref={footer}>
+    <div className="tw-spacing mt-52 pb-40 grid gap-8" ref={footer}>
         <div className="flex items-center gap-8 h-20" ref={footerTitle}>        
           <Image
           priority

@@ -56,7 +56,7 @@ const ProjectContainer = ({allSortedProjectsData}: PropType) => {
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
-    <div className="tw-spacing mt-36" ref={project}>
+    <div className="tw-spacing mt-24" ref={project}>
       <h3 className="text-xl text-tw-gray font-bold" ref={projectTitle}>My Projects</h3>
       <div className="mt-10 flex flex-col" ref={projectItemContainer}>
         {allSortedProjectsData.map((project, i) =>
