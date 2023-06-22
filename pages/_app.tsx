@@ -1,15 +1,27 @@
 import '../styles/globals.css';
+import '../styles/prism.css';
 import { AppProps } from 'next/app';
-import "prismjs/themes/prism-tomorrow.min.css";
-import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'] });
+import { Lenis as ReactLenis } from '@studio-freight/react-lenis';
 
-function App({Component, pageProps}: AppProps) {
+import { TransitionProvider } from '../context/transitionContext';
+import TransitionLayout from '../components/transitionLayout';
+
+function App({ Component, pageProps }: AppProps) {
+
+  const lenisOption = {
+    lerp: 0.4,
+    duration: 2,
+  }
+
   return (
-    <main className={inter.className}>
-      <Component {...pageProps} />
-    </main>
+    <TransitionProvider>
+      <TransitionLayout>
+        <ReactLenis root options={lenisOption}>
+          <Component {...pageProps} />
+        </ReactLenis>
+      </TransitionLayout>
+    </TransitionProvider>
   )
 }
 

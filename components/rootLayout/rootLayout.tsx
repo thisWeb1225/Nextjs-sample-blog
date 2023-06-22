@@ -6,7 +6,7 @@ import Footer from '../footer/index';
 import HomeBg from './homeBg';
 import Mouse from '../mouse/index';
 
-import { Lenis as ReactLenis } from '@studio-freight/react-lenis'
+import FadeInOut from '../../animation/fadeInOut';
 
 export const siteTitle: string = 'Kun Yang Portfolio'
 
@@ -28,47 +28,36 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
     mouse.current.style.setProperty('--y', `${y}px`);
   }
 
-  const lenisOption = {
-    lerp: 0.4,
-    duration: 2,
-  }
-
   return (
     <>
       <Head>
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          href="/favicon.ico"
+          key="favicon"
+        />
         <meta
           name="description"
           content="Kun Yang's Portfolio"
+          key="description"
         />
         <meta
-          property="og:image"
-          content={`https://og-image.vercel.app/${encodeURI(
-            siteTitle,
-          )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
-        />
-        <meta name="og:title" content={siteTitle} />
-        <link
-          rel="preload"
-          href="https://unpkg.com/prismjs@0.0.1/themes/prism-tomorrow.css"
-          as="script"
+          name="og:title"
+          content={siteTitle}
+          key="title"
         />
       </Head>
 
-      {
-        /**
-         * Body
-         */
-      }
-      <ReactLenis root options={lenisOption}>
-        <div className='bg-tw-dark text-tw-white text-sm relative overflow-hidden' onMouseMove={mouseMove}>
-          <Mouse ref={mouse}></Mouse>
-          <Menu></Menu>
+      {/* BODY */}
+      <div className='relative text-tw-white text-sm overflow-hidden' onMouseMove={mouseMove}>
+        <Mouse ref={mouse}></Mouse>
+        <Menu></Menu>
+        <FadeInOut>
           {home && <HomeBg></HomeBg>}
           {children}
           <Footer></Footer>
-        </div>
-      </ReactLenis>
+        </FadeInOut>
+      </div>
     </>
   );
 };

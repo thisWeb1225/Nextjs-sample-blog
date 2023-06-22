@@ -39,7 +39,7 @@ module.exports = {
         }
       },
       animation: {
-        homeBgFlow: 'homeBgFlow 12s linear infinite'
+        homeBgFlow: 'homeBgFlow 12s linear infinite',
       }
     },
   },
