@@ -27,7 +27,7 @@ const About = () => {
     if (window.innerWidth < 620) {
       setParticleText([
         {
-          content: '" Creating Web Is an Art "',
+          content: 'Creating Web Is an Art',
           color: '#147dfa',
           size: 32,
           weight: 600,
@@ -92,7 +92,7 @@ const About = () => {
   return (
     <div className="mt-24 grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center tw-spacing rounded-md" ref={about}>
       <div className="text-left flex flex-col gap-8">
-        <div className="h-24 border-b-[1px] border-x-tw-gray" ref={aboutContentTitle}>
+        <div className="h-28 border-b-[1px] border-x-tw-gray" ref={aboutContentTitle}>
           {/* " Creating Web Is an Art " */}
         <ParticleText texts={particleText} canvasContainer={aboutContentTitle.current}></ParticleText>
         </div>

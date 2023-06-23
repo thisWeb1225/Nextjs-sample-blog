@@ -133,7 +133,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
       cancelAnimationFrame(frameId);
     }
 
-  }, [canvasRef.current, texts])
+  }, [texts])
 
   return <canvas ref={canvasRef}></canvas>
 

@@ -29,7 +29,7 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useIsomorphicLayoutEffect(() => {
-    if (isDeviceMobile) setIsMobile(true);
+    if (isDeviceMobile()) setIsMobile(true);
   }, [])
 
   const mouse = useRef<HTMLDivElement>();
@@ -65,7 +65,7 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
 
       {/* BODY */}
       <div className='relative text-tw-white text-sm overflow-hidden' onMouseMove={mouseMove}>
-        {isMobile && <Mouse ref={mouse}></Mouse>}
+        {!isMobile && <Mouse ref={mouse}></Mouse>}
         <Menu></Menu>
         {home && <HomeBg></HomeBg>}
         <FadeInOut>
