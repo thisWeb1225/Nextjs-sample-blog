@@ -1,5 +1,11 @@
 import { useRef, useEffect } from "react";
+
 import Particle from "../../lib/Particle";
+import { resizeCanvas, clearCanvas, darwCanvasText } from "../../lib/canvas";
+
+/**
+ * Type
+ */
 
 export type textOptionsType = {
   content: string,
@@ -8,7 +14,7 @@ export type textOptionsType = {
   color: string,
   x: number,
   y: number,
-  center?: {
+  align?: {
     x: 'start' | 'center' | 'end',
     y: 'bottom' | 'middle' | 'top',
   }
@@ -25,78 +31,51 @@ type ParticleTextProps = {
   canvasContainer: HTMLElement
 }
 
-const ParticleText = ({texts, canvasContainer}: ParticleTextProps) => {
+/**
+ * Component
+ */
+
+const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
   const mouseRadius = 80;
 
-  const canvas = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
   const mouse = useRef<MouseType>({ x: 0, y: 0, radius: 0 });
 
-  const canvasResize = (canvas: HTMLCanvasElement, canvasContainer: HTMLElement) => {
-    if (canvasContainer) {
-      const containerRect = canvasContainer.getBoundingClientRect();
-      canvas.width = containerRect.width;
-      canvas.height = containerRect.height;
-    } else {
-      canvas.style.width = '100%';
-      canvas.style.height = '100%';
-    }
-    
-  }
-
-  const clearCanvas = (ctx: CanvasRenderingContext2D) => {
-    if (!ctx || !canvas.current) return;
-    ctx.clearRect(0, 0, canvas.current.width, canvas.current.height);
-  }
-
-  const darwText = (ctx: CanvasRenderingContext2D, texts: textOptionsType[]) => {
-
-    texts.forEach((text) => {
-      const {content, size, weight, color, x, y, center} = text;
-
-      ctx.textAlign = center?.x || 'center';
-      ctx.textBaseline = center?.y || 'middle';
-
-      ctx.fillStyle = color;
-      ctx.font = `${weight} ${size}px Inter`;
-      ctx.fillText(content, x, y);
-    })
-  }
-
   // when component mounted, set the canvas animation
   useEffect(() => {
-    if (!texts || !canvas.current) return;
+    if (!texts || !canvasRef.current) return;
 
     // set mouse position
-    const mouseMove = (e) => {
-      const canvasRect = canvas.current.getBoundingClientRect();
+    const mouseMove = (e: MouseEvent) => {
+      const canvasRect = canvasRef.current.getBoundingClientRect();
       mouse.current.x = e.clientX - canvasRect.left;
       mouse.current.y = e.clientY - canvasRect.top;
       mouse.current.radius = mouseRadius;
     }
-    // if mouse out the container
+    // if mouse out the container, let mouse's radius to 0
     const mouseLeave = () => {
       mouse.current.radius = 0;
     }
-    canvas.current.addEventListener('mousemove', mouseMove);
-    canvas.current.addEventListener('mouseleave', mouseLeave);
-    
-    // Parameter
+    canvasRef.current.addEventListener('mousemove', mouseMove);
+    canvasRef.current.addEventListener('mouseleave', mouseLeave);
+
+    // Particle text parameter
     let frameId: number;
-    ctx.current = canvas.current.getContext('2d', { willReadFrequently: true });
+    ctx.current = canvasRef.current.getContext('2d', { willReadFrequently: true });
     const particles = [];
-  
+
     // set canvas' width and height
-    canvasResize(canvas.current, canvasContainer);
+    resizeCanvas(canvasRef.current, canvasContainer);
 
     // generate Paritcle
     const generateParticle = (canvas: HTMLCanvasElement) => {
-      
-      darwText(ctx.current, texts);
+
+      darwCanvasText(canvas, ctx.current, texts);
       const pixels = ctx.current.getImageData(0, 0, canvas.width, canvas.height).data;
 
       // when get the pixels, clear the canvas' text
-      clearCanvas(ctx.current)
+      clearCanvas(ctx.current, canvas);
 
       // get the data of canvas' every chunk, the type of gap must be integer 
       const gap = 1;
@@ -127,7 +106,7 @@ const ParticleText = ({texts, canvasContainer}: ParticleTextProps) => {
     }
 
     const animate = () => {
-      clearCanvas(ctx.current) // need clear canvas before update particle
+      clearCanvas(ctx.current, canvasRef.current) // need clear canvas before update particle
       updateParticles();
       frameId = requestAnimationFrame(animate);
     }
@@ -135,14 +114,14 @@ const ParticleText = ({texts, canvasContainer}: ParticleTextProps) => {
     const init = () => {
       if (frameId) cancelAnimationFrame(frameId);
       // clear old data
-      canvasResize(canvas.current, canvasContainer);
-      clearCanvas(ctx.current);
+      resizeCanvas(canvasRef.current, canvasContainer);
+      clearCanvas(ctx.current, canvasRef.current);
 
       // clear old particle
       particles.splice(0, particles.length);
 
       // generate new particle
-      generateParticle(canvas.current);
+      generateParticle(canvasRef.current);
       animate();
     }
 
@@ -154,9 +133,9 @@ const ParticleText = ({texts, canvasContainer}: ParticleTextProps) => {
       cancelAnimationFrame(frameId);
     }
 
-  }, [canvas, texts])
+  }, [canvasRef.current, texts])
 
-  return <canvas ref={canvas}></canvas>
+  return <canvas ref={canvasRef}></canvas>
 
 }
 

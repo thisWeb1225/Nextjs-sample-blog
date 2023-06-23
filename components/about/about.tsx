@@ -1,4 +1,5 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
+import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect";
 
@@ -21,7 +22,42 @@ const About = () => {
 
   let [particleText, setParticleText] = useState<textOptionsType[] | []>([]);
 
-  useEffect(() => {
+  const setTextPosition = () => {
+    const aboutContentTitleRect = aboutContentTitle.current.getBoundingClientRect();
+    if (window.innerWidth < 620) {
+      setParticleText([
+        {
+          content: '" Creating Web Is an Art "',
+          color: '#147dfa',
+          size: 32,
+          weight: 600,
+          x: 0,
+          y: aboutContentTitleRect.height/2,
+          align: {
+            x: 'start',
+            y: 'middle',
+          }
+        }
+      ])
+    } else {
+      setParticleText([
+        {
+          content: '" Creating Web Is an Art "',
+          color: '#147dfa',
+          size: 48,
+          weight: 600,
+          x: 0,
+          y: aboutContentTitleRect.height/2,
+          align: {
+            x: 'start',
+            y: 'middle',
+          }
+        }
+      ])
+    }
+  }
+
+  useIsomorphicLayoutEffect(() => {
 
     let ctx = gsap.context(() => {
       
@@ -43,24 +79,13 @@ const About = () => {
 
     })
       
+    setTextPosition();
+    window.addEventListener('resize', setTextPosition);
 
-    const aboutContentTitleRect = aboutContentTitle.current.getBoundingClientRect();
-    setParticleText([
-      {
-        content: '" Creating Web Is an Art "',
-        color: '#147dfa',
-        size: 48,
-        weight: 600,
-        x: 0,
-        y: aboutContentTitleRect.height/2,
-        center: {
-          x: 'start',
-          y: 'middle',
-        }
-      }
-    ])
-
-    return () => ctx.revert(); // cleanup
+    return () => {
+      ctx.revert();
+      window.removeEventListener('resize', setTextPosition)
+    } 
     
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 

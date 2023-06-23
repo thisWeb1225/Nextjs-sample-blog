@@ -1,7 +1,8 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
+import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
+import isDeviceMobile from "../../lib/isDeviceMobile";
 
 const Mouse = forwardRef<HTMLDivElement>(({ }, mouseRef) => {
-
   return (
     <div className="absolute mix-blend-exclusion pointer-events-none z-[999]" ref={mouseRef}>
       <div className="w-2 -left-[1px] -top-[1px] aspect-square bg-tw-secondary rounded-full absolute translate-x-[var(--x)] translate-y-[var(--y)] ease-linear"></div>

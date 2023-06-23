@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-// import ParticleText, { TextOptions } from "./particleText";
+
 import ParticleText, { textOptionsType } from "../particleText/particleText";
+
+import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 
 const Banner = () => {
 
@@ -8,45 +10,88 @@ const Banner = () => {
 
   let [fonts, setFonts] = useState<textOptionsType[] | []>([]);
   const setTextPosition = () => {
-    setFonts([
-      {
-        content: 'Design & Develope website',
-        color: '#ffffff',
-        size: 18,
-        weight: 300,
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2 - 160,
-      },
-      {
-        content: 'Hello, I am Yang',
-        color: '#147dfa',
-        size: 100,
-        weight: 800,
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
-      },
-      {
-        content: 'I am a front-end Developer',
-        color: '#ffffff',
-        size: 24,
-        weight: 300,
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2 + 160,
-      },
-      {
-        content: 'I will make your website unique',
-        color: '#ffffff',
-        size: 24,
-        weight: 300,
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2 + 200,
-      }
-    ])
-  }
+    if (window.innerWidth < 620) {
+      setFonts([
+        {
+          content: 'Design & Develope website',
+          color: '#ffffff',
+          size: 20,
+          weight: 300,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2 - 160,
+        },
+        {
+          content: 'Hello, I am Yang',
+          color: '#147dfa',
+          size: 64,
+          weight: 800,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2,
+        },
+        {
+          content: 'I am a front-end Developer',
+          color: '#ffffff',
+          size: 24,
+          weight: 300,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2 + 160,
+        },
+        {
+          content: 'I will make your website unique',
+          color: '#ffffff',
+          size: 24,
+          weight: 300,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2 + 240,
+        }
+      ])
+    } else {
+      setFonts([
+        {
+          content: 'Design & Develope website',
+          color: '#ffffff',
+          size: 20,
+          weight: 300,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2 - 160,
+        },
+        {
+          content: 'Hello, I am Yang',
+          color: '#147dfa',
+          size: 100,
+          weight: 800,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2,
+        },
+        {
+          content: 'I am a front-end Developer',
+          color: '#ffffff',
+          size: 32,
+          weight: 300,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2 + 160,
+        },
+        {
+          content: 'I will make your website unique',
+          color: '#ffffff',
+          size: 32,
+          weight: 300,
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2 + 200,
+        }
+      ])
+    }
+   
+  }   
   
-  useEffect(() => {
+
+  useIsomorphicLayoutEffect(() => {
     setTextPosition();
     window.addEventListener('resize', setTextPosition);
+
+    return () => {
+      window.removeEventListener('resize', setTextPosition)
+    }
   }, [])
 
 

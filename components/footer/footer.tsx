@@ -51,7 +51,7 @@ const Footer = () => {
         color: '#ffffff',
         x: 0,
         y: footerTitle.current.clientHeight / 2,
-        center: {
+        align: {
             x: 'start',
             y: 'middle',
         },
