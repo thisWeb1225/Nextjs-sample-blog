@@ -1,4 +1,7 @@
-import { useRef, MouseEvent } from 'react';
+import { useRef, MouseEvent, useState } from 'react';
+import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
+
+import isDeviceMobile from '../../lib/isDeviceMobile';
 
 import Head from 'next/head';
 import Menu from '../menu/index';
@@ -10,12 +13,24 @@ import FadeInOut from '../../animation/fadeInOut';
 
 export const siteTitle: string = 'Kun Yang Portfolio'
 
+/**
+ * Type
+ */
 type RootLayoutProps = {
   children: React.ReactNode,
   home?: boolean
 }
 
+/**
+ * RootLayout
+ */
 const RootLayout = ({ children, home }: RootLayoutProps) => {
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useIsomorphicLayoutEffect(() => {
+    if (isDeviceMobile) setIsMobile(true);
+  }, [])
 
   const mouse = useRef<HTMLDivElement>();
 
@@ -50,10 +65,10 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
 
       {/* BODY */}
       <div className='relative text-tw-white text-sm overflow-hidden' onMouseMove={mouseMove}>
-        <Mouse ref={mouse}></Mouse>
+        {isMobile && <Mouse ref={mouse}></Mouse>}
         <Menu></Menu>
+        {home && <HomeBg></HomeBg>}
         <FadeInOut>
-          {home && <HomeBg></HomeBg>}
           {children}
           <Footer></Footer>
         </FadeInOut>
