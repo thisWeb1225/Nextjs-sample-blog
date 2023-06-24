@@ -1,7 +1,10 @@
 import { useRef, useEffect } from "react";
 
+import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
+
 import Particle from "../../lib/Particle";
 import { resizeCanvas, clearCanvas, darwCanvasText } from "../../lib/canvas";
+import isDeviceMobile from "../../lib/isDeviceMobile";
 
 /**
  * Type
@@ -36,14 +39,14 @@ type ParticleTextProps = {
  */
 
 const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
-  const mouseRadius = 80;
+  const mouseRadius = 60;
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctx = useRef<CanvasRenderingContext2D | null>(null);
   const mouse = useRef<MouseType>({ x: 0, y: 0, radius: 0 });
 
   // when component mounted, set the canvas animation
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!texts || !canvasRef.current) return;
 
     // set mouse position
@@ -65,8 +68,9 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     ctx.current = canvasRef.current.getContext('2d', { willReadFrequently: true });
     const particles = [];
 
-    // set canvas' width and height
-    resizeCanvas(canvasRef.current, canvasContainer);
+    // To prevent scrolling on mobile and trigger the "init()" function when the navigation bar is hidden
+    // we need set the variable to store initWidth/Height
+    const initWidth = window.innerWidth, initHeight = window.innerHeight;
 
     // generate Paritcle
     const generateParticle = (canvas: HTMLCanvasElement) => {
@@ -96,7 +100,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
       }
     }
 
-    // update every particles
+    // function for update every particles
     const updateParticles = () => {
       particles.forEach(particle => {
         particle.draw();
@@ -106,16 +110,15 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     }
 
     const animate = () => {
-      clearCanvas(ctx.current, canvasRef.current) // need clear canvas before update particle
+      clearCanvas(ctx.current, canvasRef.current) // need clear canvas before update particles
       updateParticles();
       frameId = requestAnimationFrame(animate);
     }
 
     const init = () => {
-      if (frameId) cancelAnimationFrame(frameId);
       // clear old data
+      if (frameId) cancelAnimationFrame(frameId);
       resizeCanvas(canvasRef.current, canvasContainer);
-      clearCanvas(ctx.current, canvasRef.current);
 
       // clear old particle
       particles.splice(0, particles.length);
@@ -126,14 +129,20 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     }
 
     init();
-    window.addEventListener('resize', init);
+
+    const resizeInit = () =>  {
+      // if is mobile and the height was change, it is mean the nav be hidden, so don't do anything 
+      if (isDeviceMobile() && initHeight !== window.innerHeight) return;
+      init();
+    }
+    window.addEventListener('resize', resizeInit);
 
     return () => {
-      window.removeEventListener('resize', init);
+      window.removeEventListener('resize', resizeInit);
       cancelAnimationFrame(frameId);
     }
 
-  }, [texts])
+  }, [canvasRef.current, texts])
 
   return <canvas ref={canvasRef}></canvas>
 

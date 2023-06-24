@@ -43,20 +43,41 @@ const Footer = () => {
     /**
      * Particle Text
      */
-    setParticleText([
-      {
-        content: 'Let’s work together',
-        size: 48,
-        weight: 400,
-        color: '#ffffff',
-        x: 0,
-        y: footerTitle.current.clientHeight / 2,
-        align: {
-            x: 'start',
-            y: 'middle',
-        },
-      }
-    ])
+    const resizeParticleText = () => {
+     if (window.innerWidth < 620) {
+      setParticleText([
+        {
+          content: 'Let’s work together',
+          size: 36,
+          weight: 400,
+          color: '#ffffff',
+          x: 0,
+          y: footerTitle.current.clientHeight / 2,
+          align: {
+              x: 'start',
+              y: 'middle',
+          },
+        }
+      ])
+     } else {
+      setParticleText([
+        {
+          content: 'Let’s work together',
+          size: 48,
+          weight: 400,
+          color: '#ffffff',
+          x: 0,
+          y: footerTitle.current.clientHeight / 2,
+          align: {
+              x: 'start',
+              y: 'middle',
+          },
+        }
+      ])
+     }
+    }
+    resizeParticleText();
+    window.addEventListener('resize', resizeParticleText)
 
     return () => ctx.revert(); // cleanup
     

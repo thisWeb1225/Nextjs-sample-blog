@@ -44,7 +44,7 @@ class Particle {
     this.angle = 0;
     this.distance = 0;
     this.friction = Math.random() * 0.2;
-    this.ease = Math.random() * 0.1 + 0.04;
+    this.ease = Math.random() * 0.1 + 0.1;
   }
 
   draw() {
@@ -63,10 +63,10 @@ class Particle {
     this.dx = mouse.x - this.x;
     this.dy = mouse.y - this.y;
     this.distance = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
-    this.force = -(mouse.radius / this.distance) * 40;
+    this.force = -(Math.random() + 1) * (mouse.radius / this.distance) * 40;
 
     if (this.distance < mouse.radius) {
-      this.angle = Math.atan2(this.dy, this.dx);
+      this.angle = Math.atan2(this.dy, this.dx) + (Math.random() - 0.5) * 2;
       this.vx = this.force * Math.cos(this.angle);
       this.vy = this.force * Math.sin(this.angle);
       this.color = '#f97316';
