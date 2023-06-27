@@ -1,13 +1,14 @@
-import { textOptionsType } from '../components/particleText/particleText';
+import { TextOptionsType } from "../components/particleText/particleText";
 
 export const resizeCanvas = (
   canvas: HTMLCanvasElement,
-  canvasContainer: HTMLElement
+  canvasContainer?: HTMLDivElement
 ) => {
+  
   if (canvasContainer) {
-    const containerRect = canvasContainer.getBoundingClientRect();
-    canvas.width = containerRect.width;
-    canvas.height = containerRect.height;
+    const canvasContainerRect = canvasContainer.getBoundingClientRect()
+    canvas.width = canvasContainerRect.width;
+    canvas.height = canvasContainerRect.height;
   } else {
     canvas.style.width = '100%';
     canvas.style.height = '100%';
@@ -15,18 +16,17 @@ export const resizeCanvas = (
 };
 
 export const clearCanvas = (
-  ctx: CanvasRenderingContext2D,
   canvas: HTMLCanvasElement
 ) => {
+  const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
 export const darwCanvasText = (
   canvas: HTMLCanvasElement,
-  ctx: CanvasRenderingContext2D,
-  texts: textOptionsType[]
+  texts: TextOptionsType[]
 ) => {
-
+  const ctx = canvas.getContext('2d');
   texts.forEach((text) => {
     const { content, size, weight, color, x, y, align } = text;
 
@@ -38,16 +38,18 @@ export const darwCanvasText = (
 
     const lineHeight = size;
 
-    wrapText(content, x, y, lineHeight, size, ctx, canvas);
+    wrapText(content, x, y, lineHeight, canvas);
   });
 };
 
-const wrapText = (text, x, y, lineHeight, size, ctx, canvas) => {
+const wrapText = (content, x, y, lineHeight, canvas) => {
+  const ctx = canvas.getContext('2d');
+
   const maxTextWidth = canvas.width * 0.7;
   let linesArray = [];
   let lineCounter = 0;
   let line = '';
-  let words = text.split(' ');
+  let words = content.split(' ');
   for (let i = 0; i < words.length; i++) {
     let textLine = `${line}${words[i]} `;
     if (ctx.measureText(textLine).width > maxTextWidth) {

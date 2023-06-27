@@ -1,22 +1,21 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 
 import Particle from "../../lib/Particle";
 import { resizeCanvas, clearCanvas, darwCanvasText } from "../../lib/canvas";
-import isDeviceMobile from "../../lib/isDeviceMobile";
 
 /**
  * Type
  */
 
-export type textOptionsType = {
+export type TextOptionsType = {
   content: string,
   size: number,
   weight: number | string,
   color: string,
-  x: number,
-  y: number,
+  x: number | string,
+  y: number | string,
   align?: {
     x: 'start' | 'center' | 'end',
     y: 'bottom' | 'middle' | 'top',
@@ -30,8 +29,8 @@ export type MouseType = {
 }
 
 type ParticleTextProps = {
-  texts: textOptionsType[],
-  canvasContainer: HTMLElement
+  texts: TextOptionsType[],
+  canvasContainer: HTMLDivElement
 }
 
 /**
@@ -42,12 +41,36 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
   const mouseRadius = 60;
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ctx = useRef<CanvasRenderingContext2D | null>(null);
   const mouse = useRef<MouseType>({ x: 0, y: 0, radius: 0 });
 
   // when component mounted, set the canvas animation
   useIsomorphicLayoutEffect(() => {
-    if (!texts || !canvasRef.current) return;
+    if (!texts || !canvasRef.current || !canvasContainer) return;
+
+    
+    const positionTranformedTexts = texts.map(text => {
+      const canvasContainerRect = canvasContainer.getBoundingClientRect();
+      
+      // if text = 50 - 123, percent = 0.5, pixel = -123
+      const percentX = typeof text.x === 'string' ? parseInt(text.x.trim().match(/\d+(?=%)/)[0]) / 100 : 0;
+      const percentY = typeof text.y === 'string' ? parseInt(text.y.trim().match(/\d+(?=%)/)[0]) / 100 : 0;
+      const pixelX = typeof text.x ===
+        'string'
+        ? text.x.trim().match(/(?<=%)[\S]+/)?.[0] === undefined
+          ? 0  // if text.x don't have pixel number
+          : parseInt(text.x.trim().match(/(?<=%)[\S]+/)?.[0]) // if text.x have pixel number, turn to the real number
+        : text.x; // if text.x === number
+        const pixelY = typeof text.y ===
+        'string'
+        ? text.y.trim().match(/(?<=%)[\S]+/)?.[0] === undefined
+          ? 0
+          : parseInt(text.y.trim().match(/(?<=%)[\S]+/)?.[0])
+        : text.y;
+
+      const x = canvasContainerRect.width * percentX + pixelX;
+      const y = canvasContainerRect.height * percentY + pixelY;
+      return { ...text, x, y }
+    });
 
     // set mouse position
     const mouseMove = (e: MouseEvent) => {
@@ -65,21 +88,17 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
 
     // Particle text parameter
     let frameId: number;
-    ctx.current = canvasRef.current.getContext('2d', { willReadFrequently: true });
+    const ctx = canvasRef.current.getContext('2d', { willReadFrequently: true });
     const particles = [];
-
-    // To prevent scrolling on mobile and trigger the "init()" function when the navigation bar is hidden
-    // we need set the variable to store initWidth/Height
-    const initWidth = window.innerWidth, initHeight = window.innerHeight;
 
     // generate Paritcle
     const generateParticle = (canvas: HTMLCanvasElement) => {
 
-      darwCanvasText(canvas, ctx.current, texts);
-      const pixels = ctx.current.getImageData(0, 0, canvas.width, canvas.height).data;
+      darwCanvasText(canvas, positionTranformedTexts);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
       // when get the pixels, clear the canvas' text
-      clearCanvas(ctx.current, canvas);
+      clearCanvas(canvas);
 
       // get the data of canvas' every chunk, the type of gap must be integer 
       const gap = 1;
@@ -94,7 +113,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
             const green = pixels[index + 1];
             const blue = pixels[index + 2];
             const color = `rgb(${red}, ${green}, ${blue})`;
-            particles.push(new Particle(ctx.current, canvas.width, canvas.height, gap, x, y, color))
+            particles.push(new Particle(ctx, canvas.width, canvas.height, gap, x, y, color))
           }
         }
       }
@@ -110,7 +129,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     }
 
     const animate = () => {
-      clearCanvas(ctx.current, canvasRef.current) // need clear canvas before update particles
+      clearCanvas(canvasRef.current) // need clear canvas before update particles
       updateParticles();
       frameId = requestAnimationFrame(animate);
     }
@@ -130,19 +149,11 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
 
     init();
 
-    const resizeInit = () =>  {
-      // if is mobile and the height was change, it is mean the nav be hidden, so don't do anything 
-      if (isDeviceMobile() && initHeight !== window.innerHeight) return;
-      init();
-    }
-    window.addEventListener('resize', resizeInit);
-
     return () => {
-      window.removeEventListener('resize', resizeInit);
       cancelAnimationFrame(frameId);
     }
 
-  }, [canvasRef.current, texts])
+  }, [texts])
 
   return <canvas ref={canvasRef}></canvas>
 

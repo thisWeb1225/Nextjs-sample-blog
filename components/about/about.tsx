@@ -1,14 +1,47 @@
-import { useRef, useState } from "react";
-import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
+import { useRef } from "react";
 
+import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
+import useResizeParticleText from "../../hooks/useResizeParticleText";
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-import ParticleText, {textOptionsType} from "../particleText/particleText";
+import ParticleText from "../particleText/particleText";
+import { ParticleTextContentType } from "../../hooks/useResizeParticleText";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const particleTextContent: ParticleTextContentType = {
+  'computer': [
+    {
+      content: '" Creating Web Is an Art "',
+      color: '#147dfa',
+      size: 48,
+      weight: 600,
+      x: 0,
+      y: '50%',
+      align: {
+        x: 'start',
+        y: 'middle',
+      }
+    },
+  ],
+  'mobile': [
+    {
+      content: 'Creating Web Is an Art',
+      color: '#147dfa',
+      size: 32,
+      weight: 600,
+      x: 0,
+      y: '50%',
+      align: {
+        x: 'start',
+        y: 'middle',
+      }
+    }
+  ]
+}
 
 const About = () => {
 
@@ -20,73 +53,35 @@ const About = () => {
   const aboutBtnChild2 = useRef(null);
   useFollowMouseEffect(aboutBtnParent, aboutBtnChild1, aboutBtnChild2);
 
-  let [particleText, setParticleText] = useState<textOptionsType[] | []>([]);
-
-  const setTextPosition = () => {
-    const aboutContentTitleRect = aboutContentTitle.current.getBoundingClientRect();
-    if (window.innerWidth < 620) {
-      setParticleText([
-        {
-          content: 'Creating Web Is an Art',
-          color: '#147dfa',
-          size: 32,
-          weight: 600,
-          x: 0,
-          y: aboutContentTitleRect.height/2,
-          align: {
-            x: 'start',
-            y: 'middle',
-          }
-        }
-      ])
-    } else {
-      setParticleText([
-        {
-          content: '" Creating Web Is an Art "',
-          color: '#147dfa',
-          size: 48,
-          weight: 600,
-          x: 0,
-          y: aboutContentTitleRect.height/2,
-          align: {
-            x: 'start',
-            y: 'middle',
-          }
-        }
-      ])
-    }
-  }
+  const particleTextState = useResizeParticleText(particleTextContent);
 
   useIsomorphicLayoutEffect(() => {
 
     let ctx = gsap.context(() => {
-      
-      gsap.timeline({scrollTrigger:{
-        trigger: about.current,
-        start:  "top bottom",  
-        end:  "center top",
-        scrub: 1,
-      }})
-      .from(aboutContentTitle.current, {
-        y: 300,
-      }, 0)
-      .from(aboutContent.current, {
-        y: 300,
-      }, 0.1)
-      .from(aboutBtnParent.current, {
-        y: 300,
-      }, 0.2);
 
-    })
-      
-    setTextPosition();
-    window.addEventListener('resize', setTextPosition);
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: about.current,
+          start: "top bottom",
+          end: "center top",
+          scrub: 1,
+        }
+      })
+        .from(aboutContentTitle.current, {
+          y: 300,
+        }, 0)
+        .from(aboutContent.current, {
+          y: 300,
+        }, 0.1)
+        .from(aboutBtnParent.current, {
+          y: 300,
+        }, 0.2);
+
+    });
 
     return () => {
       ctx.revert();
-      window.removeEventListener('resize', setTextPosition)
-    } 
-    
+    }
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
@@ -94,7 +89,7 @@ const About = () => {
       <div className="text-left flex flex-col gap-8">
         <div className="h-28 border-b-[1px] border-x-tw-gray" ref={aboutContentTitle}>
           {/* " Creating Web Is an Art " */}
-        <ParticleText texts={particleText} canvasContainer={aboutContentTitle.current}></ParticleText>
+          <ParticleText texts={particleTextState} canvasContainer={aboutContentTitle.current}></ParticleText>
         </div>
         <p ref={aboutContent}>
           I love UI design and web's animation design.
