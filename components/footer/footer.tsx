@@ -44,7 +44,8 @@ const particleTextContent: ParticleTextContentType = {
 
 const Footer = () => {
 
-  const footer = useRef()
+  const brige = useRef();
+  const footer = useRef();
   const footerTitle = useRef<HTMLDivElement>();
   const footerLine = useRef();
   const footerContent = useRef();
@@ -64,9 +65,13 @@ const Footer = () => {
           scrub: 1,
         }
       })
+        .from(brige.current, {
+          y: 300,
+          opacity: 0,
+        }, 0)
         .from(footerTitle.current, {
           y: 300,
-        }, 0)
+        }, 0.1)
         .from(footerLine.current, {
           y: 300,
         }, 0.2)
@@ -81,25 +86,29 @@ const Footer = () => {
 
 
   return (
-    <div className="tw-spacing mt-52 pb-40 grid gap-8" ref={footer}>
-      <div className="flex items-center gap-8 h-20" ref={footerTitle}>
-        <Image
-          priority
-          src="/images/avatar.jpg"
-          alt="avatar"
-          width={80}
-          height={80}
-          className="rounded-full flex-grow-0"
-        />
-        <ParticleText texts={particleTextState} canvasContainer={footerTitle.current}></ParticleText>
-        {/* <p className="text-4xl">Let’s work together</p> */}
+    <>
+      <p className="text-base text-center text-tw-gray my-48" ref={brige}>If you love my work and idea</p>
+      <div className="tw-spacing pb-40 grid gap-8" ref={footer}>
+        <div className="flex items-center gap-8 h-20 w-full" ref={footerTitle}>
+          <Image
+            priority
+            src="/images/avatar.jpg"
+            alt="avatar"
+            width={80}
+            height={80}
+            className="rounded-full flex-grow-0"
+          />
+          <ParticleText texts={particleTextState} canvasContainer={footerTitle.current}></ParticleText>
+          {/* <p className="text-4xl">Let’s work together</p> */}
+        </div>
+        <div className="tw-line" ref={footerLine}></div>
+        <div className="grid gap-4 justify-start whitespace-break-spaces text-base" ref={footerContent}>
+          <a href="https://www.instagram.com/this.web/" target="_blank" className="tw-link">Instagram : this.web</a>
+          <a href="mailto:kun881225@gmail.com" target="_blank" className="tw-link">Gmail : kun881225@gmail.com</a>
+        </div>
       </div>
-      <div className="tw-line" ref={footerLine}></div>
-      <div className="grid gap-4 justify-start whitespace-break-spaces text-base" ref={footerContent}>
-        <a href="https://www.instagram.com/this.web/" target="_blank" className="tw-link">Instagram : this.web</a>
-        <a href="mailto:kun881225@gmail.com" target="_blank" className="tw-link">Gmail : kun881225@gmail.com</a>
-      </div>
-    </div>
+    </>
+
   )
 }
 

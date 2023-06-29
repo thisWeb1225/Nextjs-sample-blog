@@ -10,8 +10,8 @@ import TransitionLayout from '../components/transitionLayout';
 function App({ Component, pageProps }: AppProps) {
 
   const lenisOption = {
-    lerp: 0.4,
-    duration: 2,
+    lerp: 0.1,
+    duration: 1.4,
   }
 
   return (

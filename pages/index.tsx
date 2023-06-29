@@ -19,9 +19,9 @@ export default function Home({ allSortedPostsData, allSortedProjectsData }) {
       </Head>
 
       <Banner></Banner>
-      <About></About>
       <ProjectContainer allSortedProjectsData={allSortedProjectsData}></ProjectContainer>
       <Posts allSortedPostsData={allSortedPostsData}></Posts>
+      <About></About>
 
     </RootLayout>
   );

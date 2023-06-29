@@ -19,7 +19,7 @@
 }
 
 .tw-link {
-  @apply bg-gradient-to-r from-tw-secondary to-tw-secondary pb-1 bg-[length:0_2px] bg-no-repeat bg-[0_100%] duration-300 hover:bg-[length:100%_2px]
+  @apply bg-gradient-to-r from-tw-secondary to-tw-secondary pb-1 bg-[length:0_2px] bg-no-repeat bg-[0_100%] transition-[background] duration-300 hover:bg-[length:100%_2px]
 }
 
 .tw-line {
