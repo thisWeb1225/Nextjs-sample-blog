@@ -44,7 +44,6 @@ const particleTextContent: ParticleTextContentType = {
 
 const Footer = () => {
 
-  const brige = useRef();
   const footer = useRef();
   const footerTitle = useRef<HTMLDivElement>();
   const footerLine = useRef();
@@ -65,13 +64,9 @@ const Footer = () => {
           scrub: 1,
         }
       })
-        .from(brige.current, {
-          y: 300,
-          opacity: 0,
-        }, 0)
         .from(footerTitle.current, {
           y: 300,
-        }, 0.1)
+        }, 0)
         .from(footerLine.current, {
           y: 300,
         }, 0.2)
@@ -86,8 +81,6 @@ const Footer = () => {
 
 
   return (
-    <>
-      <p className="text-base text-center text-tw-gray my-48" ref={brige}>If you love my work and idea</p>
       <div className="tw-spacing pb-40 grid gap-8" ref={footer}>
         <div className="flex items-center gap-8 h-20 w-full" ref={footerTitle}>
           <Image
@@ -107,7 +100,6 @@ const Footer = () => {
           <a href="mailto:kun881225@gmail.com" target="_blank" className="tw-link">Gmail : kun881225@gmail.com</a>
         </div>
       </div>
-    </>
 
   )
 }

@@ -69,7 +69,9 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
         <Menu></Menu>
         {home && <HomeBg></HomeBg>}
         <FadeInOut>
+          <div className={`${home ?? 'my-52'}`}>
           {children}
+          </div>
           <Footer></Footer>
         </FadeInOut>
       </div>

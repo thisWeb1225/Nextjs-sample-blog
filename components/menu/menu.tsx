@@ -5,27 +5,32 @@ import MenuItem from "./menuItem"
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect"
 
 import { gsap } from "gsap"
+import { useRouter } from "next/router"
 
 const menuData = [
   {
     name: 'Home',
+    nameCh: '主頁',
     path: '/'
   },
   {
-    name: 'Posts',
-    path: '/posts'
+    name: 'Projects',
+    nameCh: '專案',
+    path: '/projects'
   },
   {
-    name: 'Projects',
-    path: '/projects'
+    name: 'Posts',
+    nameCh: '文章',
+    path: '/posts'
   },
 ]
 
 const Menu = () => {
   const copyContainer = useRef();
   const copy = useRef();
-
   useFollowMouseEffect(copyContainer, copy);
+
+  const router = useRouter();
 
   useEffect(() => {
     let ctx = gsap.context(() => {
@@ -45,13 +50,20 @@ const Menu = () => {
       </div>
       <ul className="flex">
         {menuData.map((item, i) =>
-          <MenuItem 
-            name={item.name} 
-            path={item.path} 
+          <MenuItem
+            name={router.locale === 'en' ? item.name : item.nameCh}
+            path={item.path}
             key={i}
-            gsapDelay={(i + 1) * 0.2}  
+            gsapDelay={(i + 1) * 0.2}
           />
         )}
+        <MenuItem
+          name={router.locale === 'en' ? '文A' : '文A'}
+          path={''}
+          locale={router.locale === 'en' ? 'zhHant' : 'en'}
+          key={'change language'}
+          gsapDelay={0.8}
+        />
       </ul>
     </nav>
   )

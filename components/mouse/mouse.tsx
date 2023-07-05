@@ -1,6 +1,4 @@
-import { forwardRef, useState } from "react";
-import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
-import isDeviceMobile from "../../lib/isDeviceMobile";
+import { forwardRef } from "react";
 
 const Mouse = forwardRef<HTMLDivElement>(({ }, mouseRef) => {
   return (
