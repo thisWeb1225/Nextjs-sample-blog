@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { MouseEvent, MutableRefObject } from "react";
 
 import { ProjectTypeWithHtml } from "../../lib/projects";
@@ -10,6 +11,7 @@ import { ProjectTypeWithHtml } from "../../lib/projects";
  * src: string,
  * id: string,
  * title: string,
+ * titleCh: string,
  * date: string,
  * role: string,
  * demoUrl?: string,
@@ -20,7 +22,11 @@ import { ProjectTypeWithHtml } from "../../lib/projects";
 
 type PropType = Omit<ProjectTypeWithHtml, 'contentHtml'>;
 
-const ProjectItem = ({bannerSrc, id, title, role, date}: PropType) => {
+const ProjectItem = ({bannerSrc, id, title, titleCh, role, date}: PropType) => {
+
+  const router = useRouter();
+  const displayTitle = router.locale === 'en' ? title : titleCh
+
   const img = useRef<HTMLImageElement>();
 
   const showImg = (img:MutableRefObject<HTMLImageElement>, e:MouseEvent<HTMLDivElement> ) => {
@@ -45,7 +51,7 @@ const ProjectItem = ({bannerSrc, id, title, role, date}: PropType) => {
           />
         </div>
           <p className="text-tw-primary text-4xl uppercase duration-500 group-hover:text-orange-500 pointer-events-none">
-            {title}
+            {displayTitle}
           </p>
           <p className="text-tw-gray text-xs text-right pl-2">{role}</p>
       </div>
