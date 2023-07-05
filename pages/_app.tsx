@@ -7,6 +7,8 @@ import { Lenis as ReactLenis } from '@studio-freight/react-lenis';
 import { TransitionProvider } from '../context/transitionContext';
 import TransitionLayout from '../components/transitionLayout';
 
+import { appWithTranslation } from 'next-i18next'
+
 function App({ Component, pageProps }: AppProps) {
 
   const lenisOption = {
@@ -25,4 +27,4 @@ function App({ Component, pageProps }: AppProps) {
   )
 }
 
-export default App;
+export default appWithTranslation(App);

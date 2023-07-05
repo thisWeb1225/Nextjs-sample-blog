@@ -9,6 +9,7 @@ const particleTextContent: ParticleTextContentType = {
   'computer': [
     {
       content: 'Design & Develope website',
+      contentCh: '網站設計 & 開發',
       color: '#ffffff',
       size: 20,
       weight: 300,
@@ -25,6 +26,7 @@ const particleTextContent: ParticleTextContentType = {
     },
     {
       content: 'I am a front-end Developer',
+      contentCh: '我是一名前端工程師',
       color: '#ffffff',
       size: 32,
       weight: 300,
@@ -33,6 +35,7 @@ const particleTextContent: ParticleTextContentType = {
     },
     {
       content: 'I will make your website unique',
+      contentCh: '致力於製作獨一無二的品牌網站',
       color: '#ffffff',
       size: 32,
       weight: 300,
@@ -43,6 +46,7 @@ const particleTextContent: ParticleTextContentType = {
   'mobile': [
     {
       content: 'Design & Develope website',
+      contentCh: '網站設計 & 開發',
       color: '#ffffff',
       size: 20,
       weight: 300,
@@ -59,6 +63,7 @@ const particleTextContent: ParticleTextContentType = {
     },
     {
       content: 'I am a front-end Developer',
+      contentCh: '我是一名前端工程師',
       color: '#ffffff',
       size: 24,
       weight: 300,
@@ -67,6 +72,7 @@ const particleTextContent: ParticleTextContentType = {
     },
     {
       content: 'I will make your website unique',
+      contentCh: '致力於製作獨一無二的品牌網站',
       color: '#ffffff',
       size: 24,
       weight: 300,

@@ -4,6 +4,7 @@ import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
 
 import Particle from "../../lib/Particle";
 import { resizeCanvas, clearCanvas, darwCanvasText } from "../../lib/canvas";
+import { useRouter } from "next/router";
 
 /**
  * Type
@@ -11,6 +12,7 @@ import { resizeCanvas, clearCanvas, darwCanvasText } from "../../lib/canvas";
 
 export type TextOptionsType = {
   content: string,
+  contentCh?: string,
   size: number,
   weight: number | string,
   color: string,
@@ -42,6 +44,8 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouse = useRef<MouseType>({ x: 0, y: 0, radius: 0 });
+
+  const router = useRouter();
 
   // when component mounted, set the canvas animation
   useIsomorphicLayoutEffect(() => {
@@ -94,7 +98,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     // generate Paritcle
     const generateParticle = (canvas: HTMLCanvasElement) => {
 
-      darwCanvasText(canvas, positionTranformedTexts);
+      darwCanvasText(canvas, positionTranformedTexts, router.locale);
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
 
       // when get the pixels, clear the canvas' text

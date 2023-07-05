@@ -24,11 +24,12 @@ export const clearCanvas = (
 
 export const darwCanvasText = (
   canvas: HTMLCanvasElement,
-  texts: TextOptionsType[]
+  texts: TextOptionsType[],
+  locale: string,
 ) => {
   const ctx = canvas.getContext('2d');
   texts.forEach((text) => {
-    const { content, size, weight, color, x, y, align } = text;
+    const { content, contentCh, size, weight, color, x, y, align } = text;
 
     ctx.textAlign = align?.x || 'center';
     ctx.textBaseline = align?.y || 'middle';
@@ -38,7 +39,9 @@ export const darwCanvasText = (
 
     const lineHeight = size;
 
-    wrapText(content, x, y, lineHeight, canvas);
+    if (locale === 'en' || !contentCh) wrapText(content, x, y, lineHeight, canvas);
+    else wrapText(contentCh, x, y, lineHeight, canvas);
+    
   });
 };
 

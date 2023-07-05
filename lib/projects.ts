@@ -12,6 +12,7 @@ const projectsDirectory = path.join(process.cwd(), 'projects');
 export type ProjectType = {
   id: string,
   title: string,
+  titleCh: string,
   date: string,
   bannerSrc: string,
   role: string,
