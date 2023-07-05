@@ -157,7 +157,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
       cancelAnimationFrame(frameId);
     }
 
-  }, [texts])
+  }, [texts, router.locale])
 
   return <canvas ref={canvasRef}></canvas>
 

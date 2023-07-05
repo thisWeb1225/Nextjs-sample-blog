@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect } from "react";
 
 import MenuItem from "./menuItem"
 
@@ -58,10 +58,9 @@ const Menu = () => {
           />
         )}
         <MenuItem
-          name={router.locale === 'en' ? '文A' : '文A'}
-          path={''}
+          name={'文A'}
+          path={router.asPath}
           locale={router.locale === 'en' ? 'zhHant' : 'en'}
-          key={'change language'}
           gsapDelay={0.8}
         />
       </ul>

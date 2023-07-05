@@ -9,8 +9,8 @@ type MenuItemProps = {
   name: string,
   path: string,
   gsapDelay: number,
-  locale?: string,
-}
+  locale?: string | false,
+} 
 
 const MenuItem = ({ name, path, gsapDelay, locale }: MenuItemProps) => {
 

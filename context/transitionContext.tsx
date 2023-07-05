@@ -14,7 +14,7 @@ const TransitionContext = createContext<ContextInitType>(contextInitVal);
 
 const TransitionProvider = ({ children }) => {
   const [timeline, setTimeline] = useState(() =>
-    gsap.timeline({ paused: true })
+    gsap.timeline()
   )
 
   return (

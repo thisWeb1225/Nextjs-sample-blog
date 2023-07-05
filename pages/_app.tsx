@@ -18,11 +18,11 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <TransitionProvider>
-      <TransitionLayout>
-        <ReactLenis root options={lenisOption}>
+      <ReactLenis root options={lenisOption}>
+        <TransitionLayout>
           <Component {...pageProps} />
-        </ReactLenis>
-      </TransitionLayout>
+        </TransitionLayout>
+      </ReactLenis>
     </TransitionProvider>
   )
 }

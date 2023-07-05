@@ -1,9 +1,5 @@
 import Head from 'next/head';
 
-// hook
-import { useState } from "react";
-import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
-
 // data
 import { siteTitle } from '../components/rootLayout/rootLayout';
 import { GetStaticProps } from 'next'
@@ -51,7 +47,7 @@ export const getStaticProps: GetStaticProps = async ({locale}) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale ?? 'zhHant', ['common'])),
+      ...(await serverSideTranslations(locale, ['common'])),
       allSortedPostsData,
       allSortedProjectsData
     },

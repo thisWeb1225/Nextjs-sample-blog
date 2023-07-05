@@ -7,7 +7,7 @@ const TransitionLayout = ({ children }: { children: React.ReactNode }) => {
   const { timeline } = useContext(TransitionContext);
 
   useIsomorphicLayoutEffect(() => {
-    if (children !== displayChildren) {
+    if (children != displayChildren) {
       if (timeline.duration() === 0) {
         // there are no outro animations, so immediately transition
         setDisplayChildren(children);

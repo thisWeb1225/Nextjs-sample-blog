@@ -68,12 +68,12 @@ const RootLayout = ({ children, home }: RootLayoutProps) => {
         {!isMobile && <Mouse ref={mouse}></Mouse>}
         <Menu></Menu>
         {home && <HomeBg></HomeBg>}
-        <FadeInOut>
-          <div className={`${home ?? 'my-52'}`}>
+        {/* <FadeInOut> */}
+          <div className={`${home ?? 'my-36'}`}>
           {children}
           </div>
           <Footer></Footer>
-        </FadeInOut>
+        {/* </FadeInOut> */}
       </div>
     </>
   );
