@@ -6,6 +6,8 @@ import { ProjectTypeWithHtml } from "../../lib/projects";
 
 import ProjectItem from "./projectItem";
 
+import { useTranslation } from "next-i18next";
+
 gsap.registerPlugin(ScrollTrigger);
 
 /**
@@ -27,6 +29,8 @@ type PropType = {
 }
 
 const ProjectContainer = ({ allSortedProjectsData }: PropType) => {
+  
+  const { t } = useTranslation('common')
 
   const project = useRef();
   const projectTitle = useRef();
@@ -59,7 +63,7 @@ const ProjectContainer = ({ allSortedProjectsData }: PropType) => {
 
   return (
     <div className="tw-spacing" ref={project}>
-      <h3 className="text-xl text-tw-gray font-bold" ref={projectTitle}>My Projects</h3>
+      <h3 className="text-xl text-tw-gray font-bold" ref={projectTitle}>{t('project-heading')}</h3>
       <div className="mt-10 flex flex-col" ref={projectItemContainer}>
         {allSortedProjectsData.map((project, i) =>
           <ProjectItem
