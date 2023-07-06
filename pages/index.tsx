@@ -11,7 +11,7 @@ import RootLayout from '../components/rootLayout/index';
 import Banner from '../components/banner/index';
 import About from '../components/about/index';
 import ProjectContainer from '../components/project/index';
-import Posts from '../components/posts/index';
+import IgPost from '../components/igPost';
 import BrigeText from '../components/brigeText/brigeText';
 
 /// i18n
@@ -32,7 +32,8 @@ export default function Home({ allSortedPostsData, allSortedProjectsData }) {
       <BrigeText content={t('project-brige-text')}></BrigeText>
       <ProjectContainer allSortedProjectsData={allSortedProjectsData}></ProjectContainer>
       <BrigeText content={t('IG-post-brige-text')}></BrigeText>
-      <Posts allSortedPostsData={allSortedPostsData}></Posts>
+      {/* <Posts allSortedPostsData={allSortedPostsData}></Posts> */}
+      <IgPost></IgPost>
       <BrigeText content={t('about-brige-text')}></BrigeText>
       <About></About>
       <BrigeText content={t('contact-brige-text')}></BrigeText>

@@ -1,5 +1,7 @@
 import { useRef, useEffect } from "react";
 
+import Link from "next/link";
+
 import MenuItem from "./menuItem"
 
 import useFollowMouseEffect from "../../hooks/useFollowMouseEffect"
@@ -46,7 +48,7 @@ const Menu = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 flex justify-between items-center px-4 py-2 backdrop-blur-md z-50">
       <div ref={copyContainer} className="p-4 overflow-x-hidden">
-        <p className="text-xs whitespace-nowrap" ref={copy}>&copy; Kun Yang 2023</p>
+        <Link href="/"><p className="text-xs whitespace-nowrap" ref={copy}>&copy; Kun Yang 2023</p></Link>
       </div>
       <ul className="flex">
         {menuData.map((item, i) =>
@@ -59,7 +61,7 @@ const Menu = () => {
         )}
         <MenuItem
           name={'文A'}
-          path={router.asPath}
+          path={''}
           locale={router.locale === 'en' ? 'zhHant' : 'en'}
           gsapDelay={0.8}
         />
