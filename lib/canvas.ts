@@ -37,7 +37,7 @@ export const darwCanvasText = (
     ctx.fillStyle = color;
     ctx.font = `${weight} ${size}px Inter`;
 
-    const lineHeight = size;
+    const lineHeight = size + 4;
 
     if (locale === 'en' || !contentCh) wrapText(content, x, y, lineHeight, canvas);
     else wrapText(contentCh, x, y, lineHeight, canvas);
@@ -45,14 +45,15 @@ export const darwCanvasText = (
   });
 };
 
-const wrapText = (content, x, y, lineHeight, canvas) => {
+const wrapText = (content: string, x, y, lineHeight, canvas) => {
   const ctx = canvas.getContext('2d');
 
   const maxTextWidth = canvas.width * 0.7;
   let linesArray = [];
   let lineCounter = 0;
   let line = '';
-  let words = content.split(' ');
+  const isChinese = new RegExp(/^[\u4E00-\u9FA5]+$/);
+  let words = content.match(isChinese) ? content.split('') : content.split(' ');
   for (let i = 0; i < words.length; i++) {
     let textLine = `${line}${words[i]} `;
     if (ctx.measureText(textLine).width > maxTextWidth) {

@@ -55,20 +55,22 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     const positionTranformedTexts = texts.map(text => {
       const canvasContainerRect = canvasContainer.getBoundingClientRect();
       
+      const hasPercent = new RegExp(/\d+(?=%)/);
+      const hasPixel = new RegExp(/(?<=%)[\S]+/);
       // if text = 50 - 123, percent = 0.5, pixel = -123
-      const percentX = typeof text.x === 'string' ? parseInt(text.x.trim().match(/\d+(?=%)/)[0]) / 100 : 0;
-      const percentY = typeof text.y === 'string' ? parseInt(text.y.trim().match(/\d+(?=%)/)[0]) / 100 : 0;
+      const percentX = typeof text.x === 'string' ? parseInt(text.x.trim().match(hasPercent)[0]) / 100 : 0;
+      const percentY = typeof text.y === 'string' ? parseInt(text.y.trim().match(hasPercent)[0]) / 100 : 0;
       const pixelX = typeof text.x ===
         'string'
-        ? text.x.trim().match(/(?<=%)[\S]+/)?.[0] === undefined
+        ? text.x.trim().match(hasPixel)?.[0] === undefined
           ? 0  // if text.x don't have pixel number
-          : parseInt(text.x.trim().match(/(?<=%)[\S]+/)?.[0]) // if text.x have pixel number, turn to the real number
+          : parseInt(text.x.trim().match(hasPixel)?.[0]) // if text.x have pixel number, turn to the real number
         : text.x; // if text.x === number
         const pixelY = typeof text.y ===
         'string'
-        ? text.y.trim().match(/(?<=%)[\S]+/)?.[0] === undefined
+        ? text.y.trim().match(hasPixel)?.[0] === undefined
           ? 0
-          : parseInt(text.y.trim().match(/(?<=%)[\S]+/)?.[0])
+          : parseInt(text.y.trim().match(hasPixel)?.[0])
         : text.y;
 
       const x = canvasContainerRect.width * percentX + pixelX;
