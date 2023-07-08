@@ -10,21 +10,21 @@ import { gsap } from "gsap"
 import { useRouter } from "next/router"
 
 const menuData = [
-  {
-    name: 'Home',
-    nameCh: '主頁',
-    path: '/'
-  },
-  {
-    name: 'Projects',
-    nameCh: '專案',
-    path: '/projects'
-  },
-  {
-    name: 'Posts',
-    nameCh: '文章',
-    path: '/posts'
-  },
+  // {
+  //   name: 'Home',
+  //   nameCh: '主頁',
+  //   path: '/'
+  // },
+  // {
+  //   name: 'Projects',
+  //   nameCh: '專案',
+  //   path: '/projects'
+  // },
+  // {
+  //   name: 'Posts',
+  //   nameCh: '文章',
+  //   path: '/posts'
+  // },
 ]
 
 const Menu = () => {
@@ -51,19 +51,19 @@ const Menu = () => {
         <Link href="/"><p className="text-xs whitespace-nowrap" ref={copy}>&copy; Kun Yang 2023</p></Link>
       </div>
       <ul className="flex">
-        {menuData.map((item, i) =>
+        {/* {menuData.map((item, i) =>
           <MenuItem
             name={router.locale === 'en' ? item.name : item.nameCh}
             path={item.path}
             key={i}
             gsapDelay={(i + 1) * 0.2}
           />
-        )}
+        )} */}
         <MenuItem
-          name={'文A'}
+          name={router.locale === 'en' ? 'EN' : '繁中'}
           path={''}
           locale={router.locale === 'en' ? 'zhHant' : 'en'}
-          gsapDelay={0.8}
+          gsapDelay={0.2}
         />
       </ul>
     </nav>
