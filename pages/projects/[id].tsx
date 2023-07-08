@@ -4,6 +4,9 @@ import Image from 'next/image';
 
 import Layout from '../../components/rootLayout/index';
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
+
 export default function Project({ postData }) {
   return (
     <Layout>
@@ -12,7 +15,7 @@ export default function Project({ postData }) {
       </Head>
 
       <article className='px-2 sm:px-8 md:px-24 lg:px-32 pt-24 tw-post'>
-        <Image 
+        <Image
           src={postData.bannerSrc}
           width={640}
           height={500}
@@ -30,17 +33,29 @@ export default function Project({ postData }) {
 
 export async function getStaticPaths() {
   const paths = getAllProjectsIds();
+
+  const ids = paths.map((post) => post.params.id);
+  const pathsWithLocale = ids.map((id) => {
+    return {
+      params: { id: id.toString() },
+      locale: 'en'
+    }
+  });
+
+  console.log([...paths, ...pathsWithLocale])
+
   return {
-    paths,
+    paths: [...paths, ...pathsWithLocale],
     fallback: false,
   }
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
   const postData = await getProjectData(params?.id as string);
 
   return {
     props: {
+      ...(await serverSideTranslations(locale, ['common'])),
       postData,
     }
   }
