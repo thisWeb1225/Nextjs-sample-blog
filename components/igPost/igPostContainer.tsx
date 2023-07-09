@@ -16,6 +16,7 @@ const IgPostContainer = () => {
 
   const post = useRef();
   const postTitle = useRef();
+  const postContent = useRef();
   const postItemContainer = useRef();
 
   useIsomorphicLayoutEffect(() => {
@@ -32,6 +33,9 @@ const IgPostContainer = () => {
       })
         .from(postTitle.current, {
           y: 300,
+        }, 0)
+        .from(postContent.current, {
+          y: 450,
         }, 0.1)
         .from(postItemContainer.current, {
           y: 600,
@@ -44,9 +48,15 @@ const IgPostContainer = () => {
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
-    <div className="tw-spacing" ref={post}>
-      <h3 className="text-xl font-bold text-tw-gray border-gray-600" ref={postTitle}>{t('IG-post-heading')}</h3>
-      <ul className="grid md:grid-cols-3 gap-8 mt-10" ref={postItemContainer}>
+    <div className="tw-spacing mt-36" ref={post}>
+      <h3 className="text-4xl text-tw-primary font-bold" ref={postTitle}>{t('IG-post-heading')}</h3>
+      <p className="mt-6 text-tw-white max-w-[80%]" ref={postContent}>
+        {t('IG-post-content.description1')}
+        <br/>
+        <br/>
+        {t('IG-post-content.description2')}
+      </p>
+      <ul className="grid md:grid-cols-3 gap-8 mt-16" ref={postItemContainer}>
         <IgPostItem postLink='https://www.instagram.com/p/Cs1RPlJPzzZ/'
         videoPath="/videos/css-loading.mp4"
         ></IgPostItem>
