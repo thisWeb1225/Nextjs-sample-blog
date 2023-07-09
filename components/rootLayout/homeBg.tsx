@@ -37,8 +37,8 @@ const HomeBg = () => {
         scale: 10,
       })
       .to(bg1.current, {
-        x: 0,
-        y: height,
+        x: width,
+        y: height / 2,
         scale: 10,
       })
       .to(bg1.current, {
