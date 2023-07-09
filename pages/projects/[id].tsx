@@ -42,8 +42,6 @@ export async function getStaticPaths() {
     }
   });
 
-  console.log([...paths, ...pathsWithLocale])
-
   return {
     paths: [...paths, ...pathsWithLocale],
     fallback: false,
