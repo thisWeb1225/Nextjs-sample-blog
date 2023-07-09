@@ -54,8 +54,8 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     const positionTranformedTexts = texts.map(text => {
       const canvasContainerRect = canvasContainer.getBoundingClientRect();
 
-      const hasPercent = new RegExp(/\d+(?=%)/);
-      const hasPixel = new RegExp(/(?<=%)[\S]+/);
+      const hasPercent = new RegExp(/\d+%/, 'g');
+      const hasPixel = new RegExp(/([-+]\d+)|(\d+)(?![\S%])/, 'g');
       // if text = 50 - 123, percent = 0.5, pixel = -123
       const percentX = typeof text.x === 'string' ? parseInt(text.x.trim().match(hasPercent)[0]) / 100 : 0;
       const percentY = typeof text.y === 'string' ? parseInt(text.y.trim().match(hasPercent)[0]) / 100 : 0;
