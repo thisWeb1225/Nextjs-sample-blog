@@ -17,7 +17,7 @@ const particleTextContent: ParticleTextContentType = {
       content: 'Let’s work together',
       size: 48,
       weight: 400,
-      color: '#ffffff',
+      color: '#147dfa',
       x: 0,
       y: '50%',
       align: {
@@ -31,7 +31,7 @@ const particleTextContent: ParticleTextContentType = {
       content: 'Let’s work together',
       size: 36,
       weight: 400,
-      color: '#ffffff',
+      color: '#147dfa',
       x: 0,
       y: '50%',
       align: {
@@ -81,25 +81,27 @@ const Footer = () => {
 
 
   return (
-      <div className="tw-spacing pb-40 grid gap-8" ref={footer}>
-        <div className="flex items-center gap-8 h-20 w-full" ref={footerTitle}>
-          <Image
-            priority
-            src="/images/avatar.jpg"
-            alt="avatar"
-            width={80}
-            height={80}
-            className="rounded-full flex-grow-0"
-          />
+    <div className="tw-spacing pb-40 grid gap-8 mt-36" ref={footer}>
+      <div className="flex items-center gap-8 h-20">
+        <Image
+          priority
+          src="/images/avatar.jpg"
+          alt="avatar"
+          width={80}
+          height={80}
+          className="rounded-full flex-grow-0"
+        />
+        <div className="flex-auto" ref={footerTitle}>
           <ParticleText texts={particleTextState} canvasContainer={footerTitle.current}></ParticleText>
-          {/* <p className="text-4xl">Let’s work together</p> */}
-        </div>
-        <div className="tw-line" ref={footerLine}></div>
-        <div className="grid gap-4 justify-start whitespace-break-spaces text-base" ref={footerContent}>
-          <a href="https://www.instagram.com/this.web/" target="_blank" className="tw-link">Instagram : this.web</a>
-          <a href="mailto:kun881225@gmail.com" target="_blank" className="tw-link">Gmail : kun881225@gmail.com</a>
         </div>
       </div>
+
+      <div className="h-[1px] bg-tw-gray " ref={footerLine}></div>
+      <div className="grid gap-4 justify-start whitespace-break-spaces text-base" ref={footerContent}>
+        <a href="https://www.instagram.com/this.web/" target="_blank" className="tw-link">Instagram : this.web</a>
+        <a href="mailto:kun881225@gmail.com" target="_blank" className="tw-link">Gmail : kun881225@gmail.com</a>
+      </div>
+    </div>
 
   )
 }

@@ -18,7 +18,7 @@ import BrigeText from '../components/brigeText/brigeText';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from "next-i18next";
 
-export default function Home({ allSortedPostsData, allSortedProjectsData }) {
+export default function Home({ allSortedProjectsData }) {
 
   const { t } = useTranslation('common')
 
@@ -29,27 +29,24 @@ export default function Home({ allSortedPostsData, allSortedProjectsData }) {
       </Head>
 
       <Banner></Banner>
-      <BrigeText content={t('project-brige-text')}></BrigeText>
-      <ProjectContainer allSortedProjectsData={allSortedProjectsData}></ProjectContainer>
-      <BrigeText content={t('IG-post-brige-text')}></BrigeText>
-      {/* <Posts allSortedPostsData={allSortedPostsData}></Posts> */}
-      <IgPost></IgPost>
-      <BrigeText content={t('about-brige-text')}></BrigeText>
       <About></About>
+      <ProjectContainer allSortedProjectsData={allSortedProjectsData}></ProjectContainer>
+      <IgPost></IgPost>
       <BrigeText content={t('contact-brige-text')}></BrigeText>
 
+      {/* <Posts allSortedPostsData={allSortedPostsData}></Posts> */}
     </RootLayout>
   );
 }
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const allSortedPostsData = getSortedPostsData();
+  // const allSortedPostsData = getSortedPostsData();
   const allSortedProjectsData = getSortedProjectsData();
 
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common'])),
-      allSortedPostsData,
+      // allSortedPostsData,
       allSortedProjectsData
     },
   };

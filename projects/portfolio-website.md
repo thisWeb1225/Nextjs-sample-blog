@@ -1,9 +1,9 @@
 ---
-title: 'portfolio website'
+title: 'Portfolio Website'
 titleCh: '個人作品集網站'
 date: '2023-06 ~ now'
 bannerSrc: '/images/next-blog.png'
-role: 'Design & Developer'
+role: 'Design & Development'
 ---
 
 # Yang Kun Portfolio Website

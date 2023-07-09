@@ -51,10 +51,9 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
   useIsomorphicLayoutEffect(() => {
     if (!texts || !canvasRef.current || !canvasContainer) return;
 
-    
     const positionTranformedTexts = texts.map(text => {
       const canvasContainerRect = canvasContainer.getBoundingClientRect();
-      
+
       const hasPercent = new RegExp(/\d+(?=%)/);
       const hasPixel = new RegExp(/(?<=%)[\S]+/);
       // if text = 50 - 123, percent = 0.5, pixel = -123
@@ -66,7 +65,7 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
           ? 0  // if text.x don't have pixel number
           : parseInt(text.x.trim().match(hasPixel)?.[0]) // if text.x have pixel number, turn to the real number
         : text.x; // if text.x === number
-        const pixelY = typeof text.y ===
+      const pixelY = typeof text.y ===
         'string'
         ? text.y.trim().match(hasPixel)?.[0] === undefined
           ? 0
@@ -100,9 +99,9 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
     // generate Paritcle
     const generateParticle = (canvas: HTMLCanvasElement) => {
 
+
       darwCanvasText(canvas, positionTranformedTexts, router.locale);
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-
       // when get the pixels, clear the canvas' text
       clearCanvas(canvas);
 
@@ -148,8 +147,10 @@ const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
       // clear old particle
       particles.splice(0, particles.length);
 
-      // generate new particle
-      generateParticle(canvasRef.current);
+      // If google font is ready, generate new particle
+      document.fonts.ready.then(() => {
+        generateParticle(canvasRef.current);
+      })
       animate();
     }
 

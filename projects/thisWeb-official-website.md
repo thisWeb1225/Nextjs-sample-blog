@@ -1,9 +1,9 @@
 ---
-title: 'thisWeb official website'
-titleCh: 'thisWeb 官方網站'
+title: 'ThisWeb Brand Official Website'
+titleCh: 'ThisWeb 品牌網站'
 date: '2023-03 ~ now'
 bannerSrc: '/images/officialWebsite.png'
-role: 'Design & Developer'
+role: 'Design & Development'
 ---
 
 # this.web 官方網站：

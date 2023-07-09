@@ -22,7 +22,7 @@ const BrigeText = ({ content }: BrigeTextType) => {
         scrollTrigger: {
           trigger: text.current,
           start: "top bottom",
-          end: "top 80%",
+          end: "top 70%",
           scrub: 1,
         }
       })
@@ -37,7 +37,7 @@ const BrigeText = ({ content }: BrigeTextType) => {
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
-    <p className="text-base text-center text-tw-gray my-52" ref={text}>{content}</p>
+    <p className="text-lg text-center text-tw-white my-52" ref={text}>{content}</p>
   )
 }
 

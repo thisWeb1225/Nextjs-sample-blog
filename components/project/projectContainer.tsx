@@ -34,6 +34,7 @@ const ProjectContainer = ({ allSortedProjectsData }: PropType) => {
 
   const project = useRef();
   const projectTitle = useRef();
+  const projectContent = useRef();
   const projectItemContainer = useRef();
 
   useEffect(() => {
@@ -51,9 +52,12 @@ const ProjectContainer = ({ allSortedProjectsData }: PropType) => {
         .from(projectTitle.current, {
           y: 300,
         }, 0)
+        .from(projectContent.current, {
+          y: 450,
+        }, 0.1)
         .from(projectItemContainer.current, {
           y: 600,
-        }, 0.1)
+        }, 0.2)
 
     })
 
@@ -62,8 +66,9 @@ const ProjectContainer = ({ allSortedProjectsData }: PropType) => {
   }, []);
 
   return (
-    <div className="tw-spacing" ref={project}>
-      <h3 className="text-xl text-tw-gray font-bold" ref={projectTitle}>{t('project-heading')}</h3>
+    <div className="tw-spacing mt-36" ref={project}>
+      <h3 className="text-4xl text-tw-primary font-bold" ref={projectTitle}>{t('project-heading')}</h3>
+      <p className="mt-10 text-tw-white max-w-[80%]" ref={projectContent}>{t('project-content')}</p>
       <div className="mt-10 flex flex-col" ref={projectItemContainer}>
         {allSortedProjectsData.map((project, i) =>
           <ProjectItem

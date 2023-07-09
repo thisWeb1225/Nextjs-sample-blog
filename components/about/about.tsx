@@ -17,9 +17,9 @@ gsap.registerPlugin(ScrollTrigger);
 const particleTextContent: ParticleTextContentType = {
   'computer': [
     {
-      content: '" Creating Web Is an Art "',
+      content: 'Web development is an art',
       color: '#147dfa',
-      size: 48,
+      size: 54,
       weight: 600,
       x: 0,
       y: '50%',
@@ -31,7 +31,7 @@ const particleTextContent: ParticleTextContentType = {
   ],
   'mobile': [
     {
-      content: 'Creating Web Is an Art',
+      content: 'Web development is an art',
       color: '#147dfa',
       size: 32,
       weight: 600,
@@ -90,7 +90,7 @@ const About = () => {
   }, []); // <- empty dependency Array so it doesn't re-run on every render
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center tw-spacing rounded-md" ref={about}>
+    <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center tw-spacing rounded-md mt-36" ref={about}>
       <div className="text-left flex flex-col gap-8">
         <div className="h-28 border-b-[1px] border-x-tw-gray" ref={aboutContentTitle}>
           {/* " Creating Web Is an Art " */}
@@ -117,8 +117,8 @@ const About = () => {
       </div>
 
       <div ref={aboutBtnParent} className="self-end row-[2/2] col-[1/2] md:col-[2/2] w-fit justify-self-center">
-        <div className=" rounded-full p-6 aspect-square grid place-content-center border-[1px] border-gray-600 relative overflow-hidden after:absolute after:inset-0 after:bg-tw-primary after:translate-y-[100%] hover:after:translate-y-[0%] after:duration-300 after:origin-bottom after:rounded-full group" ref={aboutBtnChild1}>
-          <p className="text-base sm:text-xl z-[1] text-tw-white pointer-events-none" ref={aboutBtnChild2}>About Me</p>
+        <div className=" rounded-full p-4 aspect-square grid place-content-center border-[1px] border-gray-600 relative overflow-hidden after:absolute after:inset-0 after:bg-tw-primary after:translate-y-[100%] hover:after:translate-y-[0%] after:duration-300 after:origin-bottom after:rounded-full group" ref={aboutBtnChild1}>
+          <p className="text-base sm:text-xl z-[1] text-tw-white pointer-events-none whitespace-nowrap" ref={aboutBtnChild2}>Contact Me</p>
         </div>
       </div>
 

@@ -1,9 +1,9 @@
 ---
-title: 'Instagram social media'
-titleCh: 'Instagram 技術社群經營'
+title: 'ThisWeb Brand Social Media'
+titleCh: 'ThisWeb 品牌社群經營'
 date: '2022-09 ~ now'
 bannerSrc: '/images/IG.png'
-role: 'Founder & Brand Marketing'
+role: 'Management & Marketing'
 ---
 
 
