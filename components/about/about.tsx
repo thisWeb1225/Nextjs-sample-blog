@@ -19,7 +19,7 @@ const particleTextContent: ParticleTextContentType = {
     {
       content: 'Web development is an art',
       color: '#147dfa',
-      size: 54,
+      size: 48,
       weight: 600,
       x: 0,
       y: '50%',
@@ -28,6 +28,20 @@ const particleTextContent: ParticleTextContentType = {
         y: 'middle',
       }
     },
+  ],
+  'tablet': [
+    {
+      content: 'Web development is an art',
+      color: '#147dfa',
+      size: 32,
+      weight: 600,
+      x: 0,
+      y: '50%',
+      align: {
+        x: 'start',
+        y: 'middle',
+      }
+    }
   ],
   'mobile': [
     {
@@ -47,7 +61,6 @@ const particleTextContent: ParticleTextContentType = {
 
 const About = () => {
 
-  const brige = useRef(null);
   const about = useRef(null);
   const aboutContent = useRef(null);
   const aboutContentTitle = useRef<HTMLDivElement>(null);
@@ -91,20 +104,11 @@ const About = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] grid-rows-[1fr_auto] gap-y-16 md:gap-4 text-center tw-spacing rounded-md mt-36" ref={about}>
-      <div className="text-left flex flex-col gap-8">
+      <div className="text-left flex flex-col gap-8 col-[1/3]">
         <div className="h-28 border-b-[1px] border-x-tw-gray" ref={aboutContentTitle}>
           {/* " Creating Web Is an Art " */}
           <ParticleText texts={particleTextState} canvasContainer={aboutContentTitle.current}></ParticleText>
         </div>
-        {/* <p ref={aboutContent}>
-            I love UI design and web's animation design.
-            <br />
-            <br />
-            I believe that creating webs is an art, so I founded an instagram social media to share tutorials on front-end effects. Within six months, I has been attracted over 2000 followers.
-            <br />
-            <br />
-            In the future, I want to promote the front-end artistic effects in Taiwan, To make Taiwanese webpages more interesting.
-          </p> */}
         <p ref={aboutContent}>
          {t('description1')}
          <br/>

@@ -28,7 +28,7 @@
 
 .text-stroke-primary {
   color: transparent;
-  -webkit-text-stroke: 1px #147dfa;
+  -webkit-text-stroke: 2px #147dfa;
   font-weight: 900;
 }
 
