@@ -14,7 +14,7 @@ const particleTextContent: ParticleTextContentType = {
       size: 28,
       weight: 300,
       x: '50%',
-      y: '50%-120',
+      y: '50%-180',
     },
     {
       content: 'Kun Yang',
@@ -22,16 +22,16 @@ const particleTextContent: ParticleTextContentType = {
       size: 100,
       weight: 800,
       x: '50%',
-      y: '50%',
+      y: '50%-20',
     },
     {
-      content: 'I’m a self-taught front-end developer based in Taoyuan, Taiwan.',
+      content: 'I’m a self-taught front-end developer based in Taoyuan, Taiwan. 🌐',
       contentCh: '我是一名居住於台灣桃園的前端開發者',
       color: '#ffffff',
       size: 28,
       weight: 300,
       x: '50%',
-      y: '50%+120',
+      y: '50%+140',
     },
     {
       content: 'I will make your website unique',
@@ -40,7 +40,7 @@ const particleTextContent: ParticleTextContentType = {
       size: 28,
       weight: 300,
       x: '50%',
-      y: '50%+180',
+      y: '50%+200',
     }
   ],
   'mobile': [
@@ -51,7 +51,7 @@ const particleTextContent: ParticleTextContentType = {
       size: 20,
       weight: 200,
       x: '50%',
-      y: '50%-120',
+      y: '50%-160',
     },
     {
       content: 'Kun Yang',
@@ -59,10 +59,10 @@ const particleTextContent: ParticleTextContentType = {
       size: 64,
       weight: 800,
       x: '50%',
-      y: '50%',
+      y: '50%-20',
     },
     {
-      content: 'I’m a front-end developer based in Taoyuan, Taiwan.',
+      content: "I'm a front-end developer based in Taoyuan, Taiwan. 🌐",
       contentCh: '我是一名居住於台灣桃園的前端開發者',
       color: '#ffffff',
       size: 20,
