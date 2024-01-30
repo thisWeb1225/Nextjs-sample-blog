@@ -24,23 +24,23 @@ module.exports = {
         homeBgFlow: {
           '0%, 100%': {
             'border-radius': '35% 65% 64% 36% / 38% 59% 41% 62%',
-            'width': '56px',
+            width: '56px',
           },
-          '33%' : {
+          '33%': {
             'border-radius': '67% 33% 21% 79% / 57% 23% 77% 43%',
-            'width': '66px',
-            'height': '72px',
+            width: '66px',
+            height: '72px',
           },
-          '66%' : {
+          '66%': {
             'border-radius': '43% 57% 42% 58% / 25% 48% 52% 75%',
-            'width': '96px',
-            'height': '88px',
-          }
-        }
+            width: '112px',
+            height: '88px',
+          },
+        },
       },
       animation: {
-        homeBgFlow: 'homeBgFlow 12s linear infinite',
-      }
+        homeBgFlow: 'homeBgFlow 6s ease-in-out infinite',
+      },
     },
   },
   plugins: ['tailwindcss', 'autoprefixer'],

@@ -1,20 +1,19 @@
-import { GetStaticProps } from "next";
-import { getSortedPostsData, sortedPostsDataType } from "../lib/posts";
-import RootLayout from "../components/rootLayout/index";
-import PostsContainer from "../components/posts/postsContainer";
+import { GetStaticProps } from 'next';
+import { getSortedPostsData, sortedPostsDataType } from '../lib/posts';
+import RootLayout from '../components/rootLayout/rootLayout';
+import PostsContainer from '../components/posts/postsContainer';
 
 type Props = {
-  allSortedPostsData: Array<sortedPostsDataType>
-}
+  allSortedPostsData: Array<sortedPostsDataType>;
+};
 
-const Posts: React.FC = ({allSortedPostsData} : Props) => {
-
+const Posts: React.FC = ({ allSortedPostsData }: Props) => {
   return (
     <RootLayout>
       <PostsContainer allSortedPostsData={allSortedPostsData}></PostsContainer>
     </RootLayout>
-  )
-}
+  );
+};
 
 export const getStaticProps: GetStaticProps = async () => {
   const allSortedPostsData = getSortedPostsData();
@@ -23,6 +22,6 @@ export const getStaticProps: GetStaticProps = async () => {
       allSortedPostsData,
     },
   };
-}
+};
 
 export default Posts;

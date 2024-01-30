@@ -1,32 +1,29 @@
-import { TextOptionsType } from "../components/particleText/particleText";
+import { TextOptionsType } from '../components/particleText/particleText';
 
-export const resizeCanvas = (
+export function resizeCanvas(
   canvas: HTMLCanvasElement,
   canvasContainer?: HTMLDivElement
-) => {
-  
+) {
   if (canvasContainer) {
-    const canvasContainerRect = canvasContainer.getBoundingClientRect()
+    const canvasContainerRect = canvasContainer.getBoundingClientRect();
     canvas.width = canvasContainerRect.width;
     canvas.height = canvasContainerRect.height;
   } else {
     canvas.style.width = '100%';
     canvas.style.height = '100%';
   }
-};
+}
 
-export const clearCanvas = (
-  canvas: HTMLCanvasElement
-) => {
+export const clearCanvas = (canvas: HTMLCanvasElement) => {
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
-export const darwCanvasText = (
+export function drawCanvasText(
   canvas: HTMLCanvasElement,
   texts: TextOptionsType[],
-  locale: string,
-) => {
+  locale: string
+) {
   const ctx = canvas.getContext('2d');
   texts.forEach((text) => {
     const { content, contentCh, size, weight, color, x, y, align } = text;
@@ -39,13 +36,14 @@ export const darwCanvasText = (
 
     const lineHeight = size + 4;
 
-    if (locale === 'en' || !contentCh) wrapText(content, x, y, lineHeight, canvas);
-    else wrapText(contentCh, x, y, lineHeight, canvas);
-    
+    if (locale === 'en' || !contentCh) {
+      wrapText(content, x, y, lineHeight, canvas);
+    } else {
+      wrapText(contentCh, x, y, lineHeight, canvas);
+    }
   });
-};
-
-const wrapText = (content: string, x, y, lineHeight, canvas) => {
+}
+function wrapText(content: string, x, y, lineHeight, canvas) {
   const ctx = canvas.getContext('2d');
 
   const maxTextWidth = canvas.width * 0.7;
@@ -71,4 +69,4 @@ const wrapText = (content: string, x, y, lineHeight, canvas) => {
   linesArray.forEach((char, i) => {
     ctx.fillText(char, x, textY + i * lineHeight);
   });
-};
+}

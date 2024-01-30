@@ -41,5 +41,6 @@ role: 'Design & Development'
 
 
 ## 使用技術
-1. Next.js
-2. gsap
+1. Framework : Next.js page router
+2. Animation : GSAP + Framer Motion
+3. UI : Tailwind

@@ -6,11 +6,11 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type BrigeTextType = {
+type BridgeTextType = {
   content: string
 }
 
-const BrigeText = ({ content }: BrigeTextType) => {
+const BridgeText = ({ content }: BridgeTextType) => {
 
   const text = useRef();
 
@@ -41,4 +41,4 @@ const BrigeText = ({ content }: BrigeTextType) => {
   )
 }
 
-export default BrigeText
+export default BridgeText

@@ -1,8 +1,8 @@
 import { GetStaticProps } from "next";
 import { getSortedProjectsData, ProjectTypeWithHtml } from "../lib/projects";
 
-import RootLayout from "../components/rootLayout/index";
-import ProjectContainer from "../components/project/index"
+import RootLayout from "../components/rootLayout/rootLayout";
+import ProjectContainer from "../components/project/projectContainer";
 
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 

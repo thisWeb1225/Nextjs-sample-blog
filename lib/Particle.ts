@@ -1,4 +1,7 @@
+// Types
 import { MouseType } from "../components/particleText/particleText";
+// Styles
+import theme from "../styles/theme";
 
 /**
  * Particle object
@@ -25,7 +28,7 @@ class Particle {
   friction: number;
   ease: number;
 
-  constructor(ctx, canvasWidth, canvasHeight, gap, x, y, color) {
+  constructor(ctx: CanvasRenderingContext2D, canvasWidth: number, canvasHeight: number, gap: number, x: number, y: number, color: string) {
     this.ctx = ctx;
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
@@ -69,7 +72,7 @@ class Particle {
       this.angle = Math.atan2(this.dy, this.dx) + (Math.random() - 0.5) * 2;
       this.vx = this.force * Math.cos(this.angle);
       this.vy = this.force * Math.sin(this.angle);
-      this.color = '#f97316';
+      this.color = theme.colors.secondary;
     } else {
       this.color = this.originColor;
     }

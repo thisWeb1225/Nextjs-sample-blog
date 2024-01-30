@@ -1,20 +1,18 @@
-import Head from 'next/head';
-
 // data
 import { siteTitle } from '../components/rootLayout/rootLayout';
 import { GetStaticProps } from 'next'
-import { getSortedPostsData } from '../lib/posts';
 import { getSortedProjectsData } from '../lib/projects';
 
 // component
-import RootLayout from '../components/rootLayout/index';
-import Banner from '../components/banner/index';
-import About from '../components/about/index';
-import ProjectContainer from '../components/project/index';
-import IgPost from '../components/igPost';
-import BrigeText from '../components/brigeText/brigeText';
+import Head from 'next/head';
+import RootLayout from '../components/rootLayout/rootLayout';
+import Banner from '../components/banner/banner';
+import About from '../components/about/about';
+import ProjectContainer from '../components/project/projectContainer';
+import IgPostContainer from '../components/igPost/igPostContainer';
+import BridgeText from '../components/bridgeText/bridgeText';
 
-/// i18n
+// i18n
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from "next-i18next";
 
@@ -31,8 +29,8 @@ export default function Home({ allSortedProjectsData }) {
       <Banner></Banner>
       <About></About>
       <ProjectContainer allSortedProjectsData={allSortedProjectsData}></ProjectContainer>
-      <IgPost></IgPost>
-      <BrigeText content={t('contact-brige-text')}></BrigeText>
+      <IgPostContainer />
+      <BridgeText content={t('contact-bridge-text')}></BridgeText>
 
       {/* <Posts allSortedPostsData={allSortedPostsData}></Posts> */}
     </RootLayout>

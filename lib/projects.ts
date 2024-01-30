@@ -44,7 +44,7 @@ export function getSortedProjectsData(): ProjectType[] {
     };
   });
 
-  // return sorted porjects
+  // return sorted projects
   return allProjectsData.sort((a, b) => {
     if (a.date < b.date) return 1;
     else return -1;

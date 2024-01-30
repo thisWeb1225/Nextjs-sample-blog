@@ -1,169 +1,202 @@
-import { useRef } from "react";
-
-import useIsomorphicLayoutEffect from "../../hooks/useIsomorphicLayoutEffect";
-
-import Particle from "../../lib/Particle";
-import { resizeCanvas, clearCanvas, darwCanvasText } from "../../lib/canvas";
-import { useRouter } from "next/router";
+// Libs
+import Particle from '../../lib/Particle';
+import { resizeCanvas, clearCanvas, drawCanvasText } from '../../lib/canvas';
+// Hook
+import { useRef, useEffect, useMemo } from 'react';
+import useWindowWidth from '../../hooks/useWindowWidth';
+import { useRouter } from 'next/router';
+import { useInView } from 'framer-motion';
+// Type
+import { MouseEventHandler } from 'react';
 
 /**
- * Type
+ * * Type
  */
 
 export type TextOptionsType = {
-  content: string,
-  contentCh?: string,
-  size: number,
-  weight: number | string,
-  color: string,
-  x: number | string,
-  y: number | string,
+  content: string;
+  contentCh?: string;
+  size: number;
+  weight: number | string;
+  color: string;
+  x: number | string;
+  y: number | string;
   align?: {
-    x: 'start' | 'center' | 'end',
-    y: 'bottom' | 'middle' | 'top',
-  }
-}
+    x: 'start' | 'center' | 'end';
+    y: 'bottom' | 'middle' | 'top';
+  };
+};
 
 export type MouseType = {
-  x: number,
-  y: number,
-  radius?: number
-}
+  x: number;
+  y: number;
+  radius?: number;
+};
 
 type ParticleTextProps = {
-  texts: TextOptionsType[],
-  canvasContainer: HTMLDivElement
-}
+  texts: TextOptionsType[];
+  canvasContainer: HTMLDivElement;
+};
 
 /**
- * Component
+ * * Component
  */
 
+const GAP = 1;
+const MOUSE_RADIUS = 60;
+
 const ParticleText = ({ texts, canvasContainer }: ParticleTextProps) => {
-  const mouseRadius = 60;
+  console.log(texts)
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mouse = useRef<MouseType>({ x: 0, y: 0, radius: 0 });
+  const particles = useRef<Particle[]>([]);
+  const frameId = useRef<number | undefined>(undefined);
 
   const router = useRouter();
+  const { windowWidth, isMobile } = useWindowWidth();
 
-  // when component mounted, set the canvas animation
-  useIsomorphicLayoutEffect(() => {
-    if (!texts || !canvasRef.current || !canvasContainer) return;
+  const isInView = useInView(canvasRef, { once: true });
 
-    const positionTranformedTexts = texts.map(text => {
-      const canvasContainerRect = canvasContainer.getBoundingClientRect();
+  const positionTransformedTexts = texts.map((text) => {
+    const canvasContainerRect = canvasContainer.getBoundingClientRect();
 
-      const hasPercent = new RegExp(/\d+%/, 'g');
-      const hasPixel = new RegExp(/([-+]\d+)|(\d+)(?![\S%])/, 'g');
-      // if text = 50 - 123, percent = 0.5, pixel = -123
-      const percentX = typeof text.x === 'string' ? parseInt(text.x.trim().match(hasPercent)[0]) / 100 : 0;
-      const percentY = typeof text.y === 'string' ? parseInt(text.y.trim().match(hasPercent)[0]) / 100 : 0;
-      const pixelX = typeof text.x ===
-        'string'
+    const hasPercent = new RegExp(/\d+%/, 'g');
+    const hasPixel = new RegExp(/([-+]\d+)|(\d+)(?![\S%])/, 'g');
+    // if text = 50% - 123, percent = 0.5, pixel = -123
+    const percentX =
+      typeof text.x === 'string'
+        ? parseInt(text.x.trim().match(hasPercent)[0]) / 100
+        : 0;
+    const percentY =
+      typeof text.y === 'string'
+        ? parseInt(text.y.trim().match(hasPercent)[0]) / 100
+        : 0;
+    const pixelX =
+      typeof text.x === 'string'
         ? text.x.trim().match(hasPixel)?.[0] === undefined
-          ? 0  // if text.x don't have pixel number
+          ? 0 // if text.x don't have pixel number
           : parseInt(text.x.trim().match(hasPixel)?.[0]) // if text.x have pixel number, turn to the real number
         : text.x; // if text.x === number
-      const pixelY = typeof text.y ===
-        'string'
+    const pixelY =
+      typeof text.y === 'string'
         ? text.y.trim().match(hasPixel)?.[0] === undefined
           ? 0
           : parseInt(text.y.trim().match(hasPixel)?.[0])
         : text.y;
 
-      const x = canvasContainerRect.width * percentX + pixelX;
-      const y = canvasContainerRect.height * percentY + pixelY;
-      return { ...text, x, y }
-    });
+    const x = canvasContainerRect.width * percentX + pixelX;
+    const y = canvasContainerRect.height * percentY + pixelY;
+    return { ...text, x, y };
+  });
 
-    // set mouse position
-    const mouseMove = (e: MouseEvent) => {
-      const canvasRect = canvasRef.current.getBoundingClientRect();
-      mouse.current.x = e.clientX - canvasRect.left;
-      mouse.current.y = e.clientY - canvasRect.top;
-      mouse.current.radius = mouseRadius;
-    }
-    // if mouse out the container, let mouse's radius to 0
-    const mouseLeave = () => {
-      mouse.current.radius = 0;
-    }
-    canvasRef.current.addEventListener('mousemove', mouseMove);
-    canvasRef.current.addEventListener('mouseleave', mouseLeave);
+  const mouseMove: MouseEventHandler<HTMLCanvasElement> = (e) => {
+    const canvasRect = canvasRef.current.getBoundingClientRect();
+    mouse.current.x = e.clientX - canvasRect.left;
+    mouse.current.y = e.clientY - canvasRect.top;
+    mouse.current.radius = MOUSE_RADIUS;
+  };
+  // if mouse out the container, let mouse's radius to 0
+  const mouseLeave = () => {
+    mouse.current.radius = 0;
+  };
+
+  // when component mounted, set the canvas animation
+  useEffect(() => {
+    if (!texts || !canvasRef.current || !canvasContainer || !isInView) return;
 
     // Particle text parameter
-    let frameId: number;
-    const ctx = canvasRef.current.getContext('2d', { willReadFrequently: true });
-    const particles = [];
+    const ctx = canvasRef.current.getContext('2d', {
+      willReadFrequently: true,
+    });
 
-    // generate Paritcle
+    // generate Particle
     const generateParticle = (canvas: HTMLCanvasElement) => {
-
-
-      darwCanvasText(canvas, positionTranformedTexts, router.locale);
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       // when get the pixels, clear the canvas' text
       clearCanvas(canvas);
 
-      // get the data of canvas' every chunk, the type of gap must be integer 
-      const gap = 1;
-      for (let y = 0; y < canvas.height; y += gap) {
-        for (let x = 0; x < canvas.width; x += gap) {
+      // get the data of canvas' every chunk, the type of gap must be integer
+      for (let y = 0; y < canvas.height; y += GAP) {
+        for (let x = 0; x < canvas.width; x += GAP) {
           const index = (y * canvas.width + x) * 4;
           const alpha = pixels[index + 3];
-          // if the chunk has color (means the chunk is not transparnet), create a new particle
+          // if the chunk has color (means the chunk is not transparent), create a new particle
           if (alpha > 0) {
             // get every chunk's color and create a new particle
             const red = pixels[index];
             const green = pixels[index + 1];
             const blue = pixels[index + 2];
             const color = `rgb(${red}, ${green}, ${blue})`;
-            particles.push(new Particle(ctx, canvas.width, canvas.height, gap, x, y, color))
+            particles.current.push(
+              new Particle(ctx, canvas.width, canvas.height, GAP, x, y, color)
+            );
           }
         }
       }
-    }
+    };
 
     // function for update every particles
     const updateParticles = () => {
-      particles.forEach(particle => {
+      particles.current.forEach((particle) => {
         particle.draw();
         particle.encounterMouse(mouse.current);
         particle.update();
-      })
-    }
+      });
+    };
 
     const animate = () => {
-      clearCanvas(canvasRef.current) // need clear canvas before update particles
+      clearCanvas(canvasRef.current); // need clear canvas before update particles
       updateParticles();
-      frameId = requestAnimationFrame(animate);
-    }
+
+      frameId.current = requestAnimationFrame(animate);
+    };
 
     const init = () => {
       // clear old data
-      if (frameId) cancelAnimationFrame(frameId);
+      if (frameId.current) cancelAnimationFrame(frameId.current);
       resizeCanvas(canvasRef.current, canvasContainer);
 
       // clear old particle
-      particles.splice(0, particles.length);
+      particles.current.splice(0, particles.current.length);
 
-      // If google font is ready, generate new particle
+      // If google font is ready, draw canvas and generate new particle and animate
       document.fonts.ready.then(() => {
-        generateParticle(canvasRef.current);
-      })
-      animate();
-    }
+        drawCanvasText(
+          canvasRef.current,
+          positionTransformedTexts,
+          router.locale
+        );
+
+        // if is mobile or not in view, don't need animation
+        if (!isMobile || !isInView) {
+          generateParticle(canvasRef.current);
+          animate();
+        }
+      });
+    };
 
     init();
 
     return () => {
-      cancelAnimationFrame(frameId);
-    }
+      cancelAnimationFrame(frameId.current);
+    };
+  }, [
+    isInView,
+    texts,
+    router.locale,
+    windowWidth,
+    canvasRef.current,
+    canvasContainer,
+  ]);
 
-  }, [texts, router.locale])
-
-  return <canvas ref={canvasRef}></canvas>
-
-}
+  return (
+    <canvas
+      ref={canvasRef}
+      onMouseMove={mouseMove}
+      onMouseLeave={mouseLeave}
+    ></canvas>
+  );
+};
 
 export default ParticleText;
